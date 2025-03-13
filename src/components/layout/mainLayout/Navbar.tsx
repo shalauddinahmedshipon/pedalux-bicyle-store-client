@@ -3,7 +3,6 @@ import { CiSearch, CiUser } from "react-icons/ci";
 import "../../../styles/Navbar.css"
 import { IoCartOutline, IoMenuSharp } from "react-icons/io5";
 import { GrFavorite } from "react-icons/gr";
-import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 
 

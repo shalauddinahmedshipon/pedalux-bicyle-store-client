@@ -34,7 +34,7 @@ padding-bottom: 8px;
   position: relative;
   padding-inline: 10px;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.5s ease;
 }
 .nav-link-small:hover{
   color: var(--color-rose-500);
@@ -53,7 +53,7 @@ padding-bottom: 8px;
   width: 0;
   height: 3px;
   background-color: var(--color-rose-500);
-  transition: width 0.3s ease;
+  transition: width 0.5s ease;
 }
 
 .nav-link-small:hover::after {
