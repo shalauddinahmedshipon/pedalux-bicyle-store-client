@@ -27,3 +27,35 @@ padding-bottom: 8px;
 .nav-link:hover::after {
   width: 100%;
 }
+
+
+
+.nav-link-small {
+  position: relative;
+  padding-inline: 10px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.nav-link-small:hover{
+  color: var(--color-rose-500);
+}
+
+.active-link-small{
+color: var(--color-rose-500);
+border-bottom: 3px solid var(--color-rose-500);
+padding-bottom: 8px;
+}
+.nav-link-small::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--color-rose-500);
+  transition: width 0.3s ease;
+}
+
+.nav-link-small:hover::after {
+  width: 100%;
+}
