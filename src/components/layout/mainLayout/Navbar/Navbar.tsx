@@ -1,32 +1,32 @@
 
-import { CiSearch } from "react-icons/ci";
+import { CiMenuBurger, CiSearch } from "react-icons/ci";
 import "../../../../styles/navbar.css"
 import { IoCartOutline } from "react-icons/io5";
 import { GrFavorite } from "react-icons/gr";
-// import { useState } from "react";
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { ProductCategoryMenuForLg } from "./ProductCategoryMenuForLg";
 
 
-import { ProductCategoryMenuForLg } from "./ProductCategoryMenuForlg";
 
 
 const Navbar = () => {
-  // const [openSidebar,setOpenSideBar] = useState<boolean>(false);
+
   return (
    
-<nav className="flex justify-between items-center  mx-8 my-1">
+<nav className="flex justify-between items-center mx-2 md:mx-8 my-1">
          {/* nav start  */}
      <div>
       {/* logo  */}
@@ -70,74 +70,58 @@ const Navbar = () => {
     </button>
     </div>
 
-
-
+    
     <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription>
-        </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            {/* <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label> */}
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
-        </SheetFooter>
+    <SheetTrigger asChild >
+        <button className="text-2xl block lg:hidden"><CiMenuBurger/></button>
+    </SheetTrigger>
+
+      <SheetContent className="pr-10">
+   
+   <ul className="pl-5 mt-8 text-rose-500 text-lg">
+   <SheetClose asChild>
+   <li className=" py-2 text-red-700 font-semibold">Home</li>
+  </SheetClose> 
+  <Accordion type="single" collapsible>
+  <AccordionItem value="item-1">
+    <AccordionTrigger ><li className=" py-2 text-lg">Products</li></AccordionTrigger>
+    <AccordionContent>
+    <SheetClose asChild>
+    <li className=" py-2">Electric Bikes (E-Bikes)</li>
+  </SheetClose>
+    <SheetClose asChild>
+    <li className=" py-2">BMX Bikes</li>
+  </SheetClose>
+    <SheetClose asChild>
+    <li className=" py-2">Hybrid Bikes </li>
+  </SheetClose>
+    <SheetClose asChild>
+    <li className=" py-2">Road Bikes</li>
+  </SheetClose>
+    <SheetClose asChild>
+    <li className=" py-2">Mountain Bikes (MTB)</li>
+  </SheetClose>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+   
+   <SheetClose asChild>
+    <li className=" py-2"><li className=" py-2">About</li></li>
+  </SheetClose> 
+   <SheetClose asChild>
+    <li className=" py-2"> <li className=" py-2">Contact</li></li>
+  </SheetClose> 
+     
+    </ul>
+    <SheetClose asChild>
+  <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-1 font-medium rounded-full mx-10">
+    Sign Up
+    </button>
+  </SheetClose> 
       </SheetContent>
     </Sheet>
 
-               {/* nav item for small device  */}
-{/* <div onClick={()=>setOpenSideBar(!openSidebar)} className='block lg:hidden '>
-
- <div className={`  ${openSidebar?'fixed inset-0 bg-black/10 bg-opacity-50 ':' '}`}></div>
-
-{
-  !openSidebar&& <IoMenuSharp onClick={()=>setOpenSideBar(!openSidebar)} className='text-3xl text-gray-600 relative z-10' />
-}
-
-  <div   className={`bg-white shadow-2xl fixed transition-all duration-1000 z-20 top-0   flex flex-col   py-2  w-[300px]   ${openSidebar?'right-0 ':'-right-[300px]'} h-screen`}>
-  
-
-   <div >
-  <ul className="pl-5">
-    
-      <li className="active-link-small py-2">Home</li>
-      <li className="nav-link-small py-2">Products</li>
-      <li className="nav-link-small py-2">About</li>
-      <li className="nav-link-small py-2">Contact</li>
-     
-    </ul>
- 
-  <div className="pl-5 ">
-  <li className=" py-2 flex items-center justify-baseline border-b-[3px] mt-4 border-rose-500 font-semibold"><CiUser className="text-2xl"/> Sign Up</li>
-  </div>
-     </div>
- 
-    
-  </div>
-
-
-</div>   */}
-
+               
 </nav>
   
 
