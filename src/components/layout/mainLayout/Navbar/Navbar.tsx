@@ -1,13 +1,29 @@
-import { Input } from "@/components/ui/input";
-import { CiSearch, CiUser } from "react-icons/ci";
-import "../../../styles/Navbar.css"
-import { IoCartOutline, IoMenuSharp } from "react-icons/io5";
+
+import { CiSearch } from "react-icons/ci";
+import "../../../../styles/navbar.css"
+import { IoCartOutline } from "react-icons/io5";
 import { GrFavorite } from "react-icons/gr";
-import { useState } from "react";
+// import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
+
+import { ProductCategoryMenuForLg } from "./ProductCategoryMenuForlg";
 
 
 const Navbar = () => {
-  const [openSidebar,setOpenSideBar] = useState<boolean>(false);
+  // const [openSidebar,setOpenSideBar] = useState<boolean>(false);
   return (
    
 <nav className="flex justify-between items-center  mx-8 my-1">
@@ -24,7 +40,7 @@ const Navbar = () => {
   <ul className="lg:flex gap-8 hidden">
     
       <li className="active-link">Home</li>
-      <li className="nav-link">Products</li>
+      <li className="nav-link"><ProductCategoryMenuForLg/></li>
       <li className="nav-link">About</li>
       <li className="nav-link">Contact</li>
     
@@ -56,16 +72,49 @@ const Navbar = () => {
 
 
 
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="outline">Open</Button>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Edit profile</SheetTitle>
+          <SheetDescription>
+            Make changes to your profile here. Click save when you're done.
+          </SheetDescription>
+        </SheetHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            {/* <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
+            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-right">
+              Username
+            </Label> */}
+            <Input id="username" value="@peduarte" className="col-span-3" />
+          </div>
+        </div>
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button type="submit">Save changes</Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+
                {/* nav item for small device  */}
-<div onClick={()=>setOpenSideBar(!openSidebar)} className='block lg:hidden '>
- {/* Overlay */}
+{/* <div onClick={()=>setOpenSideBar(!openSidebar)} className='block lg:hidden '>
+
  <div className={`  ${openSidebar?'fixed inset-0 bg-black/10 bg-opacity-50 ':' '}`}></div>
 
 {
   !openSidebar&& <IoMenuSharp onClick={()=>setOpenSideBar(!openSidebar)} className='text-3xl text-gray-600 relative z-10' />
 }
 
-  <div   className={`bg-white shadow-2xl fixed transition-all duration-1000 z-50 top-0   flex flex-col   py-2  w-[300px]   ${openSidebar?'right-0 ':'-right-[300px]'} h-screen`}>
+  <div   className={`bg-white shadow-2xl fixed transition-all duration-1000 z-20 top-0   flex flex-col   py-2  w-[300px]   ${openSidebar?'right-0 ':'-right-[300px]'} h-screen`}>
   
 
    <div >
@@ -87,7 +136,7 @@ const Navbar = () => {
   </div>
 
 
-</div>  
+</div>   */}
 
 </nav>
   
