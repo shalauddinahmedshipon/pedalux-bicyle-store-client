@@ -1,10 +1,14 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 
 
 const MainLayout = () => {
   return (
-    <div className="container">
-      <Navbar/>
+    <div className="flex justify-center">
+     <main className="container">
+     <Navbar/>
+     <Outlet/>
+     </main>
     </div>
   );
 };

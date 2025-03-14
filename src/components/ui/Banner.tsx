@@ -1,36 +1,52 @@
+import * as React from "react"
+import Autoplay from "embla-carousel-autoplay"
+import Fade from "embla-carousel-fade"
+import banner1 from "../../assets/banner1.avif"
+import banner2 from "../../assets/banner2.webp"
+import banner3 from "../../assets/banner3.webp"
+import banner4 from "../../assets/banner4.jpg"
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
 
-// import './styles.css';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
-// import required modules
-import { Pagination } from 'swiper/modules';
+export function Banner() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+   
+  )
 
-export default function Banner() {
   return (
-    <>
-      <Swiper
-        pagination={{
-          dynamicBullets: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
+    <div className="relative w-full container mx-auto  h-[calc(100vh-80px)]">
+      <Carousel
+        plugins={[plugin.current, Fade()]}
+        className="w-full "
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
-    </>
-  );
+        <CarouselContent>
+          {[banner1,banner2,banner3,banner4].map((banner,idx) => (
+            <CarouselItem key={idx}>
+             <div>
+             <img className=" h-[calc(100vh-80px)] w-full" src={banner} alt="" />
+             </div>
+          
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+
+        {/* Positioning buttons in bottom-left corner */}
+        <div className="absolute bottom-16 right-20 flex gap-2 z-10">
+          <CarouselPrevious className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70" />
+          <CarouselNext className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70" />
+        </div>
+      </Carousel>
+    </div>
+  )
 }
