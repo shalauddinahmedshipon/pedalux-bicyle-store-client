@@ -1,7 +1,5 @@
-
 import { useState } from "react";
 import { TProduct } from "../ui/homePage/ProductFeatured";
-import { IoSearchCircle } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 
 
