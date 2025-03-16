@@ -10,16 +10,17 @@
 
 .active-link{
 color: var(--color-rose-500);
+padding-inline: 5px;
 border-bottom: 3px solid var(--color-rose-500);
 padding-bottom: 8px;
 }
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: -0.5px;
   left: 0;
   width: 0;
-  height: 3px;
+  height: 2.5px;
   background-color: var(--color-rose-500);
   transition: width 0.3s ease;
 }

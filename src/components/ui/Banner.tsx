@@ -1,10 +1,9 @@
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 import Fade from "embla-carousel-fade"
-import banner1 from "../../assets/banner1.avif"
-import banner2 from "../../assets/banner2.webp"
-import banner3 from "../../assets/banner3.webp"
-import banner4 from "../../assets/banner4.jpg"
+import banner1 from "../../assets/banner4.jpg"
+import banner2 from "../../assets/hero1.jpg"
+import banner3 from "../../assets/hero2.jpg"
 
 
 
@@ -31,7 +30,7 @@ export function Banner() {
         onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
-          {[banner1,banner2,banner3,banner4].map((banner,idx) => (
+          {[banner1,banner2,banner3].map((banner,idx) => (
             <CarouselItem key={idx}>
              <div>
              <img className=" h-[calc(100vh-80px)] w-full" src={banner} alt="" />
@@ -42,10 +41,16 @@ export function Banner() {
         </CarouselContent>
 
         {/* Positioning buttons in bottom-left corner */}
-        <div className="absolute bottom-16 right-20 flex gap-2 z-10">
-          <CarouselPrevious className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70" />
-          <CarouselNext className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70" />
-        </div>
+       
+  
+        <div className="absolute bottom-16 right-20 z-10">
+  <CarouselPrevious className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 mr-4" />
+  <CarouselNext className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70" />
+</div>
+
+
+
+ 
       </Carousel>
     </div>
   )

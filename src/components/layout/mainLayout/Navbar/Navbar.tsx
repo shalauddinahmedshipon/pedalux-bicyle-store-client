@@ -9,12 +9,21 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { NavLink } from "react-router-dom";
 
 
 
 
 
 const Navbar = () => {
+
+
+const routes =[
+  {path:"/",label:"Home"},
+  {path:"/products",label:"Products"},
+  {path:"/About",label:"About"},
+  {path:"/contact",label:"Contact"},
+]
 
   return (
    
@@ -30,11 +39,14 @@ const Navbar = () => {
       {/* nav center*/}
      <div >
   <ul className="lg:flex gap-8 hidden">
+    {
+      routes.map(route=>(
+      <NavLink key={route.path}
+      className={({isActive})=>isActive? "active-link":"nav-link"}
+        to={route.path}><li >{route.label}</li></NavLink>
+      ))
+    }
     
-      <li className="active-link">Home</li>
-      <li className="nav-link">Products</li>
-      <li className="nav-link">About</li>
-      <li className="nav-link">Contact</li>
     
     
   </ul>
@@ -54,32 +66,37 @@ const Navbar = () => {
     
     <Sheet>
     <SheetTrigger asChild className="flex lg:hidden">
-        <button className="text-2xl"><CiMenuBurger/></button>
-    </SheetTrigger>
+  <button className="text-2xl" aria-label="Open Navigation Menu">
+    <CiMenuBurger />
+  </button>
+</SheetTrigger>
 
       <SheetContent className="pr-10">
-   
-   <ul className="pl-5 mt-8 text-rose-500 text-lg">
-   <SheetClose asChild>
-   <li className=" py-2 text-red-700 font-semibold">Home</li>
-  </SheetClose> 
-   <SheetClose asChild>
-   <li className=" py-2 text-red-700 font-semibold">Products</li>
-  </SheetClose> 
+      <SheetClose  asChild> 
+<div>
+<ul className="pl-5 mt-8 text-rose-500 text-lg">
+    {
+      routes.map(route=>(
+        <NavLink 
+        key={route.path}
+        className={({ isActive }) => 
+          isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
+        } 
+        to={route.path}>
+        <li className="my-2">{route.label}</li>
+      </NavLink>
+  
+      ))
+    }
  
-   
-   <SheetClose asChild>
-    <li className=" py-2"><li className=" py-2">About</li></li>
-  </SheetClose> 
-   <SheetClose asChild>
-    <li className=" py-2"> <li className=" py-2">Contact</li></li>
-  </SheetClose> 
+ 
      
     </ul>
-    <SheetClose asChild>
-  <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-1 font-medium rounded-full mx-10">
+    
+  <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-2 font-medium rounded-full w-full mt-5 mx-5">
     Sign Up
     </button>
+</div>
   </SheetClose> 
       </SheetContent>
     </Sheet>
