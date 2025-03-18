@@ -25,11 +25,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
       {pageNumbers.map((page) => (
         <Button
           key={page}
-          variant={currentPage === page ? "default" : "outline"}
-          className={cn("w-10", currentPage === page && "bg-rose-500 text-white")}
+          variant={  "outline"}
+          className={cn("w-6", currentPage === page && "text-rose-500 border-rose-500")}
           onClick={() => onPageChange(page)}
         >
-          {page}
+         {page}
         </Button>
       ))}
 

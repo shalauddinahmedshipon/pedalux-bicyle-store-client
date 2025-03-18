@@ -10,8 +10,8 @@ import Pagination from "@/components/share/Pagination";
 const ProductContainerLayout = () => {
   const [search,setSearch]=useState("");
   const [page,setPage]=useState(1);
-  const limit=3
-const {data:products,isLoading}=useGetAllProductsQuery({page,limit});
+  const limit=15
+const {data:products,isLoading}=useGetAllProductsQuery({page,limit,search});
 
 // {page,limit,search,...filter}
 console.log(products?.data)
@@ -28,7 +28,7 @@ if(isLoading)return <div>Loading...</div>
   <h3 className="text-2xl font-semibold">Product List</h3>
  <div className="relative">
   <SearchIcon className="absolute right-5 top-1.5 text-rose-500"/>
- <Input className="lg:w-[350px] w-[200px]" type="text"  placeholder="Search bicycles..." />
+ <Input value={search} onChange={(e)=>setSearch(e.target.value)} className="lg:w-[350px] w-[200px]" type="text"  placeholder="Search bicycles..." />
  </div>
   <div>
     Short by

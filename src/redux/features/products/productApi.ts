@@ -3,12 +3,17 @@ import { baseApi } from "@/redux/api/baseApi";
 const productApi =baseApi.injectEndpoints({
   endpoints: (builders) => ({
     getAllProducts: builders.query({
-      query: ({page=1,limit=9}) => (
-        {
-        url:`/products?page=${page}&limit=${limit}`,
-        method:"GET"
-        }
-      ),
+      query: ({page=1,limit=9,search,filters}) =>{
+   const queryString=`/products?page=${page}&limit=${limit}&search=${search}`;
+
+          
+          return  {
+              url:queryString,
+              method:"GET"
+              }
+          
+   
+      },
       transformResponse:(response)=>{
         return{
           data:response?.data,
