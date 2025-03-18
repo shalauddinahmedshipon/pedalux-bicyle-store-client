@@ -4,9 +4,9 @@ const productApi =baseApi.injectEndpoints({
   endpoints: (builders) => ({
     getAllProducts: builders.query({
       query: ({page=1,limit=9,search,filters}) =>{
-   const queryString=`/products?page=${page}&limit=${limit}&search=${search}`;
-
-          
+ let queryString=`/products?page=${page}&limit=${limit}&search=${search}`;
+ if(filters?.category) queryString+=`&category=${filters.category}`
+         console.log(queryString) 
           return  {
               url:queryString,
               method:"GET"
@@ -21,7 +21,24 @@ const productApi =baseApi.injectEndpoints({
         }
       }
     }),
+    getAllCategory: builders.query({
+      query: () =>{
+
+          return  {
+              url:'/categories',
+              method:"GET"
+              }
+          
+   
+      },
+      transformResponse:(response)=>{
+        return{
+          data:response?.data,
+ 
+        }
+      }
+    }),
   }),
 })
 
-export const {useGetAllProductsQuery}=productApi
+export const {useGetAllProductsQuery,useGetAllCategoryQuery}=productApi

@@ -3,9 +3,36 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
 
+export interface TCategory {
+  _id?: string;
+  name: string;
+  slug: string;
+  isDeleted:boolean
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
-const ProductCard = ({item}) => {
-  console.log(item)
+
+export interface IProduct  {
+  _id?: string;
+  name: string;
+  brand: string;
+  model: string;
+  category:TCategory;
+  price: number;
+  stock: number;
+  description?: string;
+  imageUrl: string;
+  isDeleted?:boolean
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+type TProps ={
+  item:IProduct
+}
+
+const ProductCard = ({item}:TProps) => {
 const [isHover,setIsHover]=useState(false)
   return (
   <div onMouseEnter={()=>setIsHover(true)} onMouseLeave={()=>setIsHover(false)} className="max-w-72 shadow-xl border relative">
