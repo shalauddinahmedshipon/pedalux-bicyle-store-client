@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { TProduct } from "../ui/homePage/ProductFeatured";
+// import { TProduct } from "../ui/homePage/ProductFeatured";
 import { CiSearch } from "react-icons/ci";
 
 
 
-const ProductCard = ({item}:{item:TProduct}) => {
+const ProductCard = ({item}) => {
+  console.log(item)
 const [isHover,setIsHover]=useState(false)
   return (
   <div onMouseEnter={()=>setIsHover(true)} onMouseLeave={()=>setIsHover(false)} className="max-w-72 shadow-xl border relative">
@@ -27,9 +28,9 @@ const [isHover,setIsHover]=useState(false)
     {/* card body  */}
     <div className="p-5">
       <h3 className="font-semibold">{item?.name}</h3>
-      <p>{item.brand}</p>
-      <p>{item.category}</p>
-      <small className="text-rose-500">TK.{item.price}</small>
+      <p>{item?.brand}</p>
+      <p>{item?.category?.name}</p>
+      <small className="text-rose-500">TK.{item?.price}</small>
   
     </div>
   </div>
