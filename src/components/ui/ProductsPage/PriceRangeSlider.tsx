@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Slider } from "../slider";
-type SliderProps = React.ComponentProps<typeof Slider>
+
 type TProps = {
   onChange: (range: { gte: number; lte: number }) => void;
   minPrice?: number;

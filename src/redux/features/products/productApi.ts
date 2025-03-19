@@ -7,6 +7,7 @@ const productApi =baseApi.injectEndpoints({
  let queryString=`/products?page=${page}&limit=${limit}&search=${search}`;
  if(filters?.category) queryString+=`&category=${filters.category}`
  if(filters?.brand) queryString+=`&brand=${filters.brand}`
+ if(filters?.sort) queryString+=`&sort=${filters.sort}`
  if(filters?.price?.gte) queryString+=`&price[gte]=${filters.price.gte}`
  if(filters?.price?.lte) queryString+=`&price[lte]=${filters.price.lte}`
  if(filters?.models?.length){
