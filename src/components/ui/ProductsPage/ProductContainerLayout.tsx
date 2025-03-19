@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useGetAllCategoryQuery, useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import Pagination from "@/components/share/Pagination";
 import { InputSelect } from "@/components/share/InputSelect";
+import PriceRangeSlider from "./PriceRangeSlider";
 
 
 
@@ -12,13 +13,15 @@ const ProductContainerLayout = () => {
   const [search,setSearch]=useState("");
   const [page,setPage]=useState(1);
   const [category,setCategory]=useState("")
+  const [priceRange, setPriceRange] = useState({ gte: 0, lte: 5000 });
   const limit=15
 const {data:products,isLoading}=useGetAllProductsQuery({page,limit,search,filters:{
-  category
+  category,
+  price:priceRange
 }});
 const {data:categoryData}=useGetAllCategoryQuery(undefined);
 
-const options =[{label:"All",value:"all"},...(categoryData?.data.map((item)=>(
+const options =[{label:"All",value:"all"},...(categoryData?.data.map((item:any)=>(
   {
     label:item?.name,
     value:item?._id
@@ -28,7 +31,7 @@ const options =[{label:"All",value:"all"},...(categoryData?.data.map((item)=>(
 
 console.log(category)
 console.log(options)
-if(isLoading)return <div>Loading...</div>
+if(isLoading)return <div className="bg-black">Loading...</div>
 
   return (
     <section className="w-full flex mt-24 min-h-screen gap-10">
@@ -39,6 +42,10 @@ if(isLoading)return <div>Loading...</div>
       {/*filter by category  */}
   <div>
   <InputSelect label="Select a category" options={options} onSelected={setCategory}/>
+  </div>
+  {/* filter by price range  */}
+  <div>
+    <PriceRangeSlider onChange={setPriceRange}/>
   </div>
       </aside>
       <main className="lg:w-2/3 w-full  shadow-lg pb-10 bg-white">

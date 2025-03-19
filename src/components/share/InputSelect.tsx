@@ -22,7 +22,7 @@ export function InputSelect({options,onSelected,label}:TProps) {
   }
   return (
     <Select onValueChange={(value)=>handleSelect(value)}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[250px]">
         <SelectValue  placeholder={`${label}`} />
       </SelectTrigger>
       <SelectContent>
