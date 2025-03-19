@@ -50,6 +50,13 @@ const [isHover,setIsHover]=useState(false)
      <div className="w-12 absolute z-10 top-0.5 left-0.5">
      <img  src="/src/assets/Black and White Modern Bicycle Shop Logo (3) (1).png" alt="" />
      </div>
+     {
+   item?.stock===0&&
+   <div className="w-20 absolute z-10 top-0 right-0">
+   <img  src="https://previews.123rf.com/images/123vector/123vector1506/123vector150600044/41490808-illustration-of-red-sold-stamp-design-icon.jpg" alt="" />
+   </div>
+     }
+    
       <img src={item?.imageUrl} alt={item?.name} className={`w-full h-full bg-cover  ${isHover&&"scale-110 transition-all duration-200"}`} />
     </div>
     {/* card body  */}

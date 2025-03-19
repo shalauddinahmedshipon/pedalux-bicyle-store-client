@@ -12,6 +12,10 @@ const productApi =baseApi.injectEndpoints({
  if(filters?.models?.length){
   queryString+=filters.models.map((model:string)=>`&model=${model}`).join("");
  }
+ if (filters?.stock) {
+  if (filters.stock === "inStock") queryString += `&stock[gte]=1`;
+  if (filters.stock === "outOfStock") queryString += `&stock[lte]=0`;
+}
          console.log(queryString) 
           return  {
               url:queryString,

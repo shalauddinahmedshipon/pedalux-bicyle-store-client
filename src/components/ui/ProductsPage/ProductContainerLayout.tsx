@@ -18,12 +18,14 @@ const ProductContainerLayout = () => {
   const [brand,setBrand]=useState("");
   const [priceRange, setPriceRange] = useState({ gte: 0, lte: 5000 });
   const [selectedModels, setSelectedModels] = useState<string[]>([]);
+  const [selectedStock, setSelectedStock] = useState(""); 
   const limit=15
 const {data:products,isLoading}=useGetAllProductsQuery({page,limit,search,filters:{
   category,
   price:priceRange,
   brand,
-  models:selectedModels
+  models:selectedModels,
+  stock:selectedStock
 }});
 const {data:categoryData}=useGetAllCategoryQuery(undefined);
 
@@ -59,6 +61,11 @@ const modelOptions = [
   { label: "SS-360", value: "SS-360" },
   { label: "FPX-250", value: "FPX-250" },
 ];
+const stockOptions = [
+  { label: "All", value: "all" },
+  { label: "In Stock", value: "inStock" },
+  { label: "Out Of Stock", value: "outOfStock" },
+];
 
 
 
@@ -86,8 +93,13 @@ if(isLoading)return <div className="bg-black">Loading...</div>
   <InputSelect label="Filter by Brand Name" options={brandOptions} onSelected={setBrand}/>
   </div>
    {/* filter by multiple model using checkbox   */}
-   <div className="my-10">
+   <div className="mt-10">
  <InputCheckbox label="Model" onSelected={setSelectedModels} options={modelOptions} values={selectedModels}/>
+  </div>
+
+    {/*filter by stock  */}
+    <div className="my-10">
+  <InputSelect label="Available" options={stockOptions} onSelected={setSelectedStock}/>
   </div>
       </aside>
       <main className="lg:w-2/3 w-full  shadow-lg pb-10 bg-white">
