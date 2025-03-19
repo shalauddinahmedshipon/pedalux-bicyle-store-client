@@ -16,7 +16,7 @@ onChange({gte:value[0],lte:value[1]});
 }
   }
   return (
-    <div className="mt-10">
+    <div >
       <label className=" text-gray-700 ">Price Range: <span className="ml-6"><span className="text-2xl">&#2547;</span>{priceRange[0]}  - <span className="text-2xl">&#2547;</span>{priceRange[1]} tk</span></label>
       <Slider
       className="mt-4 max-w-[250px] "

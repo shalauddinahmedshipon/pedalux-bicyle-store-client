@@ -6,31 +6,64 @@ import { useGetAllCategoryQuery, useGetAllProductsQuery } from "@/redux/features
 import Pagination from "@/components/share/Pagination";
 import { InputSelect } from "@/components/share/InputSelect";
 import PriceRangeSlider from "./PriceRangeSlider";
+import { Checkbox } from "../checkbox";
+import InputCheckbox from "@/components/share/InputCheckbox";
 
 
 
 const ProductContainerLayout = () => {
   const [search,setSearch]=useState("");
   const [page,setPage]=useState(1);
-  const [category,setCategory]=useState("")
+  const [category,setCategory]=useState("");
+  const [brand,setBrand]=useState("");
   const [priceRange, setPriceRange] = useState({ gte: 0, lte: 5000 });
+  const [selectedModels, setSelectedModels] = useState<string[]>([]);
   const limit=15
 const {data:products,isLoading}=useGetAllProductsQuery({page,limit,search,filters:{
   category,
-  price:priceRange
+  price:priceRange,
+  brand,
+  models:selectedModels
 }});
 const {data:categoryData}=useGetAllCategoryQuery(undefined);
 
-const options =[{label:"All",value:"all"},...(categoryData?.data.map((item:any)=>(
+const categoryOptions =[{label:"All",value:"all"},...(categoryData?.data.map((item:any)=>(
   {
     label:item?.name,
     value:item?._id
   }
 ))||[])]
 
+const brandOptions=[
+  {"label":"All","value":"all"},
+  { "label": "Trek", "value": "Trek" },
+  { "label": "Giant", "value": "Giant" },
+  { "label": "Schwinn", "value": "Schwinn" },
+  { "label": "Huffy", "value": "Huffy" },
+  { "label": "Cannondale", "value": "Cannondale" },
+  { "label": "Specialized", "value": "Specialized" },
+  { "label": "Rad Power", "value": "Rad Power" },
+  { "label": "Mongoose", "value": "Mongoose" },
+  { "label": "Haro", "value": "Haro" }
+]
+
+const modelOptions = [
+  { label: "SP-2900", value: "SP-2900" },
+  { label: "RCX-500", value: "RCX-500" },
+  { label: "SC-200", value: "SC-200" },
+  { label: "CW-100", value: "CW-100" },
+  { label: "UE-700", value: "UE-700" },
+  { label: "MG-550", value: "MG-550" },
+  { label: "CG-300", value: "CG-300" },
+  { label: "PB-500", value: "PB-500" },
+  { label: "SS-360", value: "SS-360" },
+  { label: "FPX-250", value: "FPX-250" },
+];
+
+
 
 console.log(category)
-console.log(options)
+
 if(isLoading)return <div className="bg-black">Loading...</div>
 
   return (
@@ -41,11 +74,20 @@ if(isLoading)return <div className="bg-black">Loading...</div>
 
       {/*filter by category  */}
   <div>
-  <InputSelect label="Select a category" options={options} onSelected={setCategory}/>
+  <InputSelect label="Select a category" options={categoryOptions} onSelected={setCategory}/>
   </div>
   {/* filter by price range  */}
-  <div>
+  <div className="mt-10">
     <PriceRangeSlider onChange={setPriceRange}/>
+  </div>
+
+   {/* filter by brand  */}
+   <div className="mt-10">
+  <InputSelect label="Filter by Brand Name" options={brandOptions} onSelected={setBrand}/>
+  </div>
+   {/* filter by multiple model using checkbox   */}
+   <div className="my-10">
+ <InputCheckbox label="Model" onSelected={setSelectedModels} options={modelOptions} values={selectedModels}/>
   </div>
       </aside>
       <main className="lg:w-2/3 w-full  shadow-lg pb-10 bg-white">

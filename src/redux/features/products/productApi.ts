@@ -6,8 +6,12 @@ const productApi =baseApi.injectEndpoints({
       query: ({page=1,limit=9,search,filters}) =>{
  let queryString=`/products?page=${page}&limit=${limit}&search=${search}`;
  if(filters?.category) queryString+=`&category=${filters.category}`
+ if(filters?.brand) queryString+=`&brand=${filters.brand}`
  if(filters?.price?.gte) queryString+=`&price[gte]=${filters.price.gte}`
  if(filters?.price?.lte) queryString+=`&price[lte]=${filters.price.lte}`
+ if(filters?.models?.length){
+  queryString+=filters.models.map((model:string)=>`&model=${model}`).join("");
+ }
          console.log(queryString) 
           return  {
               url:queryString,
