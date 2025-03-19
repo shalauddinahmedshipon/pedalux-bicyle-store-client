@@ -3,7 +3,7 @@ import { baseApi } from "@/redux/api/baseApi";
 const productApi =baseApi.injectEndpoints({
   endpoints: (builders) => ({
     getAllProducts: builders.query({
-      query: ({page=1,limit=9,search,filters}) =>{
+query: ({page=1,limit=9,search="",filters}) =>{
  let queryString=`/products?page=${page}&limit=${limit}&search=${search}`;
  if(filters?.category) queryString+=`&category=${filters.category}`
  if(filters?.brand) queryString+=`&brand=${filters.brand}`
@@ -30,6 +30,23 @@ const productApi =baseApi.injectEndpoints({
         }
       }
     }),
+    getSingleProduct: builders.query({
+      query: (id) =>{
+
+          return  {
+              url:`/products/${id}`,
+              method:"GET"
+              }
+          
+   
+      },
+      transformResponse:(response:any)=>{
+        return{
+          data:response?.data,
+ 
+        }
+      }
+    }),
     getAllCategory: builders.query({
       query: () =>{
 
@@ -50,4 +67,4 @@ const productApi =baseApi.injectEndpoints({
   }),
 })
 
-export const {useGetAllProductsQuery,useGetAllCategoryQuery}=productApi
+export const {useGetAllProductsQuery,useGetSingleProductQuery,useGetAllCategoryQuery}=productApi

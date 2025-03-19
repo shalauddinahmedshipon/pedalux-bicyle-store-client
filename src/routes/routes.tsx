@@ -2,6 +2,7 @@ import MainLayout from "@/components/layout/mainLayout/MainLayout";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Home from "@/pages/Home";
+import ProductDetails from "@/pages/ProductDetails";
 import Products from "@/pages/Products";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
       path:"/products",
       element:<Products/>
+    },
+    {
+      path:"/product-details/:id",
+      element:<ProductDetails/>
     },
     {
       path:"/about",

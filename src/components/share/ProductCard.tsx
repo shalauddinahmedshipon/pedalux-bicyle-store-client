@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { TProduct } from "../ui/homePage/ProductFeatured";
 import { CiSearch } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 
 export interface TCategory {
@@ -40,8 +41,10 @@ const [isHover,setIsHover]=useState(false)
     <div className={`w-full h-[300px] absolute ${isHover&&"bg-white/80   z-20 transition-all duration-200"}  flex justify-center items-center`}>
    {
     isHover&&
+    <Link to={`/product-details/${item?._id}`}>
     <button className=" px-6 py-1  border-2 text-rose-500 border-rose-500 flex items-center gap-2  rounded-full active:scale-95 font-medium">
-     <CiSearch className="text-2xl"/> View Detail</button>
+    <CiSearch className="text-2xl"/> View Detail</button>
+    </Link>
    } 
     </div>
     {/* image  */}
