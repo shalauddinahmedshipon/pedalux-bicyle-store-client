@@ -55,9 +55,7 @@ const routes =[
 
     {/* nav end  */}
     <div className="flex justify-center items-center gap-6">
-    <div>
-    <IoCartOutline className="text-3xl" />
-    </div>
+   
     <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-1 font-medium rounded-full hidden lg:flex">
     Sign Up
     </button>

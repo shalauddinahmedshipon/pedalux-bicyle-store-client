@@ -8,6 +8,7 @@ import { InputSelect } from "@/components/share/InputSelect";
 import PriceRangeSlider from "./PriceRangeSlider";
 import InputCheckbox from "@/components/share/InputCheckbox";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../sheet";
+import Loader from "@/components/share/Loader";
 
 
 
@@ -82,7 +83,7 @@ const sortOptions = [
 
 console.log(category)
 
-if(isLoading)return <div className="bg-black">Loading...</div>
+// if(isLoading)return <div className="bg-black">Loading...</div>
 
   return (
     <section className="w-full flex mt-10 lg:mt-24 min-h-screen gap-10">
@@ -116,8 +117,9 @@ if(isLoading)return <div className="bg-black">Loading...</div>
 
 
         {/* product container  */}
-
-  <main className="lg:w-2/3 w-full  shadow-lg pb-10 bg-white">
+{
+  isLoading?<Loader/>:
+<main className="lg:w-2/3 w-full  shadow-lg pb-10 bg-white">
 <header className="w-full">
 
 
@@ -217,6 +219,8 @@ if(isLoading)return <div className="bg-black">Loading...</div>
       />
  </div>
       </main>
+}
+  
     </section>
   );
 };
