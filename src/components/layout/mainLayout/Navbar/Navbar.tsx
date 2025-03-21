@@ -67,7 +67,7 @@ const routes =[
   <button className="text-2xl" aria-label="Open Navigation Menu">
     <CiMenuBurger />
   </button>
-</SheetTrigger>
+  </SheetTrigger>
 
       <SheetContent className="pr-10">
       <SheetClose  asChild> 

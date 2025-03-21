@@ -1,5 +1,6 @@
 import MainLayout from "@/components/layout/mainLayout/MainLayout";
 import About from "@/pages/About";
+import Cart from "@/pages/Cart";
 import Contact from "@/pages/Contact";
 import Home from "@/pages/Home";
 import ProductDetails from "@/pages/ProductDetails";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
     {
       path:"/sign-in",
       element:<SignIn/>
+    },
+    {
+      path:"/cart",
+      element:<Cart/>
     },
   ]
 }
