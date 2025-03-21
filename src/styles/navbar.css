@@ -1,5 +1,6 @@
 .nav-link {
   position: relative;
+  padding-bottom: 8px;
   padding-inline: 5px;
   text-decoration: none;
   transition: color 0.3s ease;

@@ -1,7 +1,7 @@
 
 import { CiMenuBurger } from "react-icons/ci";
 import "../../../../styles/navbar.css"
-import { IoCartOutline } from "react-icons/io5";
+
 
 import {
   Sheet,
@@ -9,7 +9,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 
@@ -27,7 +27,7 @@ const routes =[
 
   return (
    
-<nav className="flex justify-between items-center mx-2 md:mx-8 my-1">
+     <nav className="flex justify-between items-center mx-2 md:mx-8 my-1">
          {/* nav start  */}
      <div>
       {/* logo  */}
@@ -56,9 +56,10 @@ const routes =[
     {/* nav end  */}
     <div className="flex justify-center items-center gap-6">
    
-    <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-1 font-medium rounded-full hidden lg:flex">
+  <Link to={'/sign-up'}>
+  <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-1 font-medium rounded-full hidden lg:flex">
     Sign Up
-    </button>
+    </button></Link>
     </div>
 
     
@@ -90,10 +91,11 @@ const routes =[
  
      
     </ul>
-    
+    <Link to={'/sign-up'}> 
   <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-2 font-medium rounded-full w-full mt-5 mx-5">
     Sign Up
     </button>
+    </Link>
 </div>
   </SheetClose> 
       </SheetContent>

@@ -20,7 +20,7 @@ export function CustomerReview() {
     )
   
   return (
-    <section className="md:px-10 px-5 mt-24">
+    <section className="md:px-10 px-5 my-24">
  <h6 className="text-rose-500 mb-1">What Our Customers Say</h6>
  <h2 className="text-gray-700 text-xl md:text-3xl font-semibold">Hear from our happy riders!</h2>
 

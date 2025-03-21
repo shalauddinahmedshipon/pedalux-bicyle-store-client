@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 const Cart = () => {
 const {data}=useGetAllProductsQuery({});
   return (
-   <div className="min-h-screen max-w-7xl mx-auto lg:gap-36 flex flex-col lg:flex-row my-16 px-6 justify-between items-center lg:items-start ">
+   <div className="min-h-screen  mx-auto lg:gap-36 flex flex-col lg:flex-row my-16 px-6 justify-between items-center lg:items-start ">
           
           
           {/* order overview section */}
@@ -50,9 +50,13 @@ const {data}=useGetAllProductsQuery({});
       <div className="flex justify-between text-xl text-gray-500 "><span>Subtotal</span><span>10000 tk</span></div>
       <div className="flex justify-between text-xl text-gray-500 "><span>Shipping</span><span>Free</span></div>
       <div className="flex justify-between text-xl text-gray-500 pb-3"><span className="flex items-center gap-2">Estimated Tax <IoMdInformationCircleOutline /></span><span>$-</span></div>
+   
       <div className="flex justify-between text-xl font-bold text-black border-t-2 py-3"><span>Total</span>12000 tk</div>
-      <Button className="w-full active:scale-95">GO TO CHECKOUT</Button>
+      <Link to={'/checkout'}>
+      <Button className="w-full active:scale-95">PROCEED TO CHECKOUT</Button>
+      </Link>
      </div>
+   
 
       </section> 
       

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
@@ -51,9 +51,10 @@ console.log(relatedBicycles,bicycle)
       <button className="w-10 text-3xl active:scale-95 bg-gray-100">+</button>
             </div>
         <div className="w-full">
-        <Button className="bg-rose-500 hover:bg-rose-600 text-white  py-3 w-full text-lg">
+       <Link to={'/cart'}>
+       <Button className="bg-rose-500 hover:bg-rose-600 text-white  py-3 w-full text-lg">
             Buy Now
-          </Button>
+          </Button></Link>
         </div>
           </div>
         </div>
