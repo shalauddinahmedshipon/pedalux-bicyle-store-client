@@ -1,8 +1,49 @@
+import AppForm from "@/components/forms/AppForm";
+import AppInput from "@/components/forms/AppInput";
+import { signinSchema } from "@/components/schema/authSchemaValidation";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-
+import { useSignInMutation } from "@/redux/features/auth/authApi";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hook";
+import { verifyToken } from "@/utils/verifyToken";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const SignIn = () => {
+    const navigate = useNavigate();
+    const { state: locationState } = useLocation();
+    const [signIn]=useSignInMutation();
+    const dispatch = useAppDispatch();
+    const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
+    const id = toast.loading("please! wait a few second...")
+    try {
+     const res=await signIn(data).unwrap();
+     if(!res?.data?.accessToken){
+      throw new Error("Invalid response")
+     };
+     const user = verifyToken(res?.data?.accessToken);
+     dispatch(setUser({
+      token:res?.data?.accessToken,
+      user:user
+     }))
+     toast.success(res.message,{id:id})
+     methods.reset();
+     if (locationState) {
+      const { redirectTo } = locationState ;
+      navigate(`${redirectTo.pathname}`);
+    }else{
+      navigate('/');
+    }
+    } catch (error:any) {
+      console.log(error)
+      toast.error(error.data.message,{id:id})
+    }
+  
+  }
+  
+  const defaultValues={name:"",email:"",password:""}
   return (
     <div className="bg-[url('/src/assets/signup.webp')] bg-cover py-24 flex justify-center">
        <div className="  lg:my-0 bg-white/80 backdrop-blur-xs w-sm">
@@ -11,15 +52,14 @@ const SignIn = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white ">
               Sign in to your account
               </h1>
-      <form className="space-y-4 md:space-y-6  " action="#">
+  <AppForm  onSubmit={onSubmit} defaultValues={defaultValues} resolver={zodResolver(signinSchema)}>
+      <div className="space-y-4 md:space-y-6  " >
                  
-                  <div>
-                      <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
-                      <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" required/>
+                   <div>
+                  <AppInput label="Email" name="email" type="email" placeholder="Your Email"/>
                   </div>
                   <div>
-                      <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                  <AppInput label="Password" name="password" type="password" placeholder="Password ****"/>
                   </div>
                   <div className="flex items-center justify-between">
                       <div className="flex items-start">
@@ -41,7 +81,8 @@ const SignIn = () => {
                   </p>
          </Link>
                  
-              </form>
+              </div>
+              </AppForm>
               </div>
             </div>
       </div>

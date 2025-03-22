@@ -16,11 +16,9 @@ const SignUp = () => {
   const [signUp]=useSignUpMutation();
   const dispatch = useAppDispatch();
 const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
-  console.log(data);
   const id = toast.loading("please wait a few second!...")
   try {
    const res=await signUp(data).unwrap();
-   console.log(res?.data?.accessToken);
    if(!res?.data?.accessToken){
     throw new Error("Invalid response")
    };
