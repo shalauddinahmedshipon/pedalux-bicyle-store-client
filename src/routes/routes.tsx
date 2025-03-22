@@ -1,3 +1,4 @@
+import ProtectedRoutes from "@/auth/ProtectedRoutes";
 import MainLayout from "@/components/layout/mainLayout/MainLayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
     },
     {
       path:"/checkout",
-      element:<Checkout/>
+      element:<ProtectedRoutes><Checkout/></ProtectedRoutes>
     },
   ]
 }
