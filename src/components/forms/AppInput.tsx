@@ -17,14 +17,14 @@ const AppInput = ({label,name,type,placeholder,disabled}:TInputProps) => {
     <FormField
           control={control}
           name={name}
-          render={({ field }) => (
+          render={({ field,fieldState:{error} }) => (
             <FormItem>
               <FormLabel>{label}</FormLabel>
               <FormControl>
-                <Input disabled={disabled} placeholder={placeholder} {...field} />
+                <Input className="py-6" {...field} ref={field.ref} type={type} disabled={disabled} placeholder={placeholder}   aria-invalid={error ? "true" : "false"} />
               </FormControl>
              
-              <FormMessage  />
+              {error && <FormMessage>{error.message}</FormMessage>}
             </FormItem>
           )}
         />

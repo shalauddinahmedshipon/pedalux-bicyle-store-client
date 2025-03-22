@@ -1,11 +1,13 @@
 import { ReactNode } from "react";
-import { useForm, FieldValues, FormProvider } from "react-hook-form"
+import { useForm, FieldValues, FormProvider, UseFormReturn } from "react-hook-form"
 type TFormConfig={
   defaultValues?:Record<string,unknown>;
   resolver?:any;
 }
 type TFormProps={
-  onSubmit:(data:FieldValues,methods:any,defaultValues:Record<string,unknown>)=>Promise<void>;
+  onSubmit:(data:FieldValues,
+    methods: UseFormReturn<FieldValues>,
+    defaultValues:Record<string,unknown>)=>Promise<void>;
   children:ReactNode;
 }&TFormConfig
 

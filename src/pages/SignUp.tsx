@@ -1,8 +1,46 @@
 import AppForm from "@/components/forms/AppForm";
+import AppInput from "@/components/forms/AppInput";
+import { signupSchema } from "@/components/schema/authSchemaValidation";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { useSignUpMutation } from "@/redux/features/auth/authApi";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hook";
+import { verifyToken } from "@/utils/verifyToken";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const SignUp = () => {
+  const navigate=useNavigate();
+  const [signUp]=useSignUpMutation();
+  const dispatch = useAppDispatch();
+const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
+  console.log(data);
+  const id = toast.loading("please wait a few second!...")
+  try {
+   const res=await signUp(data).unwrap();
+   console.log(res?.data?.accessToken);
+   if(!res?.data?.accessToken){
+    throw new Error("Invalid response")
+   };
+   const user = verifyToken(res?.data?.accessToken);
+   dispatch(setUser({
+    token:res?.data?.accessToken,
+    user:user
+   }))
+   toast.success(res.message,{id:id})
+   methods.reset();
+   navigate('/')
+  } catch (error:any) {
+    console.log(error)
+    toast.error(error.data.message,{id:id})
+  }
+
+}
+
+const defaultValues={name:"",email:"",password:""}
+
   return (
     <section className="lg:flex lg:flex-row items-center justify-between  bg-white w-full ">
       {/* image  */}
@@ -17,19 +55,17 @@ const SignUp = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                  Create an account
               </h1>
-      <AppForm  onSubmit={onSubmit} >
+      <AppForm  onSubmit={onSubmit} defaultValues={defaultValues} resolver={zodResolver(signupSchema)}>
           <div className="space-y-4 md:space-y-6  ">
           <div>
-                      <label htmlFor="Name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
-                      <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name" required/>
+            <AppInput label="Name" name="name" type="text" placeholder="Your Name"/>
+                    
                   </div>
                   <div>
-                      <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
-                      <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" required/>
+                  <AppInput label="Email" name="email" type="email" placeholder="Your Email"/>
                   </div>
                   <div>
-                      <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                  <AppInput label="Password" name="password" type="password" placeholder="Password ****"/>
                   </div>
                   <div className="flex items-center justify-between">
                       <div className="flex items-start">
@@ -47,7 +83,7 @@ const SignUp = () => {
          </Button>
          <Link to={'/sign-in'}>
          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Already have an account? <a href="#" className="font-medium hover:underline text-rose-500">Sign In</a>
+                      Already have an account? <span  className="font-medium hover:underline text-rose-500">Sign In</span>
                   </p>
          </Link>
 
