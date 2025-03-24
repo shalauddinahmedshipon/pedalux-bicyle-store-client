@@ -4,25 +4,34 @@ import { motion } from "framer-motion";
 import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
 import ProductCard, { IProduct } from "@/components/share/ProductCard";
 import Loader from "@/components/share/Loader";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { addToCart, decreaseQuantity} from "@/redux/features/cart/cartSlice";
+import { useState } from "react";
+import { number } from "zod";
 
 
 
 const ProductDetails = () => {
+  const [quantity,setQuantity]=useState(1);
   const { id } = useParams();
+  const dispatch=useAppDispatch();
   const {data:bicycleData}=useGetSingleProductQuery(id);
-  const bicycle=bicycleData?.data
+  const bicycle:IProduct=bicycleData?.data
   const { data: relatedBicyclesData,isLoading} = useGetAllProductsQuery(
-    { filters: { category: bicycle?.category } },
+    { filters: { category: bicycle?.category?._id } },
     { skip: !bicycle?.category } 
   );
 
 const relatedBicycles=relatedBicyclesData?.data
 
-console.log(relatedBicycles,bicycle)
+console.log(bicycle?._id)
   if (isLoading) return <Loader/>
 
+
+  
   return (
-    <div className=" mx-auto md:px-10 px-5 py-10 container">
+   <div>
+   <div className=" mx-auto md:px-10 px-5 py-10 container">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-20 md:items-stretch items-center ">
         {/* Bicycle Image */}
         <motion.img 
@@ -39,20 +48,21 @@ console.log(relatedBicycles,bicycle)
           <h1 className="text-3xl font-bold mb-4">{bicycle?.name}</h1>
           <p className="text-lg text-gray-600 mb-2">Brand: {bicycle?.brand}</p>
           <p className="text-lg text-gray-600 mb-2">Model: {bicycle?.model}</p>
-          <p className="text-lg text-gray-600 mb-2">Category: {bicycle?.category}</p>
+          <p className="text-lg text-gray-600 mb-2">Category: {bicycle?.category?.name}</p>
+        <p className="text-lg text-gray-600 mb-2">In stock: <span className="text-black font-semibold">{bicycle?.stock}</span></p>
           <p className="text-xl font-semibold text-rose-500 mb-4"><span className="text-3xl">&#2547;</span>{bicycle?.price}</p>
-          <p className="text-lg text-gray-700 mb-6">{bicycle?.description.slice(0,600)}</p>
+          <p className="text-lg text-gray-700 mb-6">{bicycle?.description?.slice(0,600)}</p>
           
           {/* Buy Now Button  and quantity button*/}
           <div className="flex  gap-5">
             <div className="flex ">
-      <button className="w-10 text-3xl active:scale-95 bg-gray-100">-</button>
-      <span className=" text-xl flex items-center justify-center w-10  bg-gray-100">1</span>
-      <button className="w-10 text-3xl active:scale-95 bg-gray-100">+</button>
+      <button onClick={()=>setQuantity(pre=>pre>1?pre-1:1)} className="w-10 text-3xl active:scale-95 bg-gray-100">-</button>
+      <span className=" text-xl flex items-center justify-center w-10  bg-gray-100">{quantity}</span>
+      <button onClick={()=>setQuantity(pre=>pre+1)} className="w-10 text-3xl active:scale-95 bg-gray-100">+</button>
             </div>
         <div className="w-full">
        <Link to={'/cart'}>
-       <Button className="bg-rose-500 hover:bg-rose-600 text-white  py-3 w-full text-lg">
+       <Button onClick={()=>dispatch(addToCart({product:bicycle,quantity}))} className="bg-rose-500 hover:bg-rose-600 text-white  py-3 w-full text-lg">
             Buy Now
           </Button></Link>
         </div>
@@ -79,6 +89,7 @@ console.log(relatedBicycles,bicycle)
      
     </section>
     </div>
+   </div>
   );
 };
 
