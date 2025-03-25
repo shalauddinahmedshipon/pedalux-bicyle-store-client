@@ -7,6 +7,7 @@ export type TUser={
   role:string;
   iat:number;
   exp:number;
+  id:string;
 }
 
 type TAuthState={

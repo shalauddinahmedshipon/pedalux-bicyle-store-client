@@ -3,19 +3,22 @@ import AppInput from "@/components/forms/AppInput";
 import { signinSchema } from "@/components/schema/authSchemaValidation";
 import { Button } from "@/components/ui/button";
 import { useSignInMutation } from "@/redux/features/auth/authApi";
-import { setUser } from "@/redux/features/auth/authSlice";
-import { useAppDispatch } from "@/redux/hook";
+import { setUser, useCurrentToken } from "@/redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { verifyToken } from "@/utils/verifyToken";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, UseFormReturn } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const SignIn = () => {
+    
     const navigate = useNavigate();
+    const token = useAppSelector(useCurrentToken);
     const { state: locationState } = useLocation();
     const [signIn]=useSignInMutation();
     const dispatch = useAppDispatch();
+
     const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
     const id = toast.loading("please! wait a few second...")
     try {
@@ -36,6 +39,7 @@ const SignIn = () => {
     }else{
       navigate('/');
     }
+    // if(token)
     } catch (error:any) {
       console.log(error)
       toast.error(error.data.message,{id:id})
@@ -44,6 +48,10 @@ const SignIn = () => {
   }
   
   const defaultValues={name:"",email:"",password:""}
+  
+  if(token){
+    return <Navigate to={"/"}/>
+  }
   return (
     <div className="bg-[url('/src/assets/signup.webp')] bg-cover py-24 flex justify-center">
        <div className="  lg:my-0 bg-white/80 backdrop-blur-xs w-sm">

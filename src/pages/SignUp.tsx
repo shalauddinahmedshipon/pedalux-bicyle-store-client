@@ -3,11 +3,11 @@ import AppInput from "@/components/forms/AppInput";
 import { signupSchema } from "@/components/schema/authSchemaValidation";
 import { Button } from "@/components/ui/button";
 import { useSignUpMutation } from "@/redux/features/auth/authApi";
-import { setUser } from "@/redux/features/auth/authSlice";
-import { useAppDispatch } from "@/redux/hook";
+import { setUser, useCurrentToken } from "@/redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { verifyToken } from "@/utils/verifyToken";
 import { FieldValues, UseFormReturn } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -15,7 +15,8 @@ const SignUp = () => {
   const navigate=useNavigate();
   const [signUp]=useSignUpMutation();
   const dispatch = useAppDispatch();
-const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
+  const token = useAppSelector(useCurrentToken);
+  const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
   const id = toast.loading("please wait a few second!...")
   try {
    const res=await signUp(data).unwrap();
@@ -38,7 +39,9 @@ const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
 }
 
 const defaultValues={name:"",email:"",password:""}
-
+if(token){
+  return <Navigate to={"/"}/>
+}
   return (
     <section className="lg:flex lg:flex-row items-center justify-between  bg-white w-full ">
       {/* image  */}
