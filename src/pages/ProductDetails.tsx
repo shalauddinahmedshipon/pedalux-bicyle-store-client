@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
 import ProductCard, { IProduct } from "@/components/share/ProductCard";
 import Loader from "@/components/share/Loader";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { addToCart, decreaseQuantity} from "@/redux/features/cart/cartSlice";
+import { useAppDispatch} from "@/redux/hook";
+import { addToCart} from "@/redux/features/cart/cartSlice";
 import { useState } from "react";
-import { number } from "zod";
+
 
 
 
 const ProductDetails = () => {
-  const [quantity,setQuantity]=useState(1);
   const { id } = useParams();
+  const [quantity,setQuantity]=useState(1);
   const dispatch=useAppDispatch();
   const {data:bicycleData}=useGetSingleProductQuery(id);
   const bicycle:IProduct=bicycleData?.data
@@ -22,7 +22,7 @@ const ProductDetails = () => {
     { skip: !bicycle?.category } 
   );
 
-const relatedBicycles=relatedBicyclesData?.data
+const relatedBicycles=relatedBicyclesData?.data?.filter((item:IProduct)=>item._id!==id);
 
 console.log(bicycle?._id)
   if (isLoading) return <Loader/>

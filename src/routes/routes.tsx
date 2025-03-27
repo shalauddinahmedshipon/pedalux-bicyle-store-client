@@ -9,6 +9,7 @@ import ProductDetails from "@/pages/ProductDetails";
 import Products from "@/pages/Products";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
+import VerifyOrders from "@/pages/VerifyOrders";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
     {
       path:"/checkout",
       element:<ProtectedRoutes><Checkout/></ProtectedRoutes>
+    },
+    {
+      path:"/verify-orders",
+      element:<ProtectedRoutes><VerifyOrders/></ProtectedRoutes>
     },
   ]
 }

@@ -25,9 +25,9 @@ const Checkout = () => {
         "price": item.price,
       }
     ))
-
+console.log(data)
  const orderData={
-  user: user?.email,
+  phoneNumber:data.phoneNumber,
   products,
   totalPrice, 
   paymentMethod: "SurjoPay", 
@@ -36,9 +36,10 @@ const Checkout = () => {
     const id = toast.loading("please! wait a few second...")
     try {
  const res=  await createOrder(orderData).unwrap();
-console.log(res);
-toast.success(res.data.message,{id:id})
+console.log(res.data);
+toast.success(res.message,{id:id})
  methods.reset();
+window.location.href=res.data
 
     } catch (error:any) {
       console.log(error)
@@ -47,7 +48,7 @@ toast.success(res.data.message,{id:id})
   
   }
   
-  const defaultValues={street:"",city:"",state:"",zipCode:"",country:""}
+  const defaultValues={phoneNumber:"",street:"",city:"",state:"",zipCode:"",country:""}
  
   return (
     <div className="container mx-auto p-6 mt-10 mb-24">
@@ -59,7 +60,7 @@ toast.success(res.data.message,{id:id})
        
           <AppInput
             type="text"
-            name="phone"
+            name="phoneNumber"
             placeholder="Phone Number"
         
           />

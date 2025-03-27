@@ -11,6 +11,13 @@ const orderApi =baseApi.injectEndpoints({
               }    
       }
     }),
+    verifyOrder: builders.query({
+      query: (order_id) => ({
+        url: "/orders/verify",
+        params: { order_id },
+        method: "GET",
+      }),
+    }),
     // signIn: builders.mutation({
     //   query: (userInfo) =>{
     //       return  {
@@ -23,4 +30,4 @@ const orderApi =baseApi.injectEndpoints({
   }),
 })
 
-export const {useCreateOrderMutation}=orderApi
+export const {useCreateOrderMutation,useVerifyOrderQuery}=orderApi
