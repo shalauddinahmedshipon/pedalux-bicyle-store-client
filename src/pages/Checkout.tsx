@@ -27,7 +27,7 @@ const Checkout = () => {
     ))
 
  const orderData={
-  user: user?.id,
+  user: user?.email,
   products,
   totalPrice, 
   paymentMethod: "SurjoPay", 
@@ -59,10 +59,15 @@ toast.success(res.data.message,{id:id})
        
           <AppInput
             type="text"
+            name="phone"
+            placeholder="Phone Number"
+        
+          />
+          <AppInput
+            type="text"
             name="street"
             placeholder="Street Address"
-           
-            label=""
+
           />
           <AppInput
             type="text"
