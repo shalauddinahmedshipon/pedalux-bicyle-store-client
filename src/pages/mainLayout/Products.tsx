@@ -1,5 +1,5 @@
 import HeroSection from "@/components/share/HeroSection";
-import product from "../assets/hero3.jpg"
+import product from "../../assets/hero3.jpg";
 import ProductContainerLayout from "@/components/ui/ProductsPage/ProductContainerLayout";
 
 

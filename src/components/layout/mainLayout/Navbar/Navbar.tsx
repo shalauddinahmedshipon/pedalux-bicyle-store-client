@@ -30,7 +30,7 @@ const routes =[
 
   return (
    
-     <nav className="flex justify-between items-center mx-2 md:mx-8 my-1">
+     <nav className="flex justify-between items-center mx-2 md:mx-8 my-1 ">
          {/* nav start  */}
      <div>
       {/* logo  */}

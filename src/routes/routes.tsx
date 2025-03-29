@@ -1,17 +1,24 @@
 import ProtectedRoutes from "@/auth/ProtectedRoutes";
-import Dashboard from "@/components/layout/dashbaord/Dashboard";
+import DashboardLayout from "@/components/layout/dashboard/DashboardLayout";
 import MainLayout from "@/components/layout/mainLayout/MainLayout";
-import About from "@/pages/About";
-import Cart from "@/pages/Cart";
-import Checkout from "@/pages/Checkout";
-import Contact from "@/pages/Contact";
-import Home from "@/pages/Home";
-import ManageAccount from "@/pages/ManageAccount";
-import ProductDetails from "@/pages/ProductDetails";
-import Products from "@/pages/Products";
-import SignIn from "@/pages/SignIn";
-import SignUp from "@/pages/SignUp";
-import VerifyOrders from "@/pages/VerifyOrders";
+import AdminDashboard from "@/pages/adminDashboard/AdminDashboard";
+import ManageOrders from "@/pages/adminDashboard/ManageOrders";
+import ManageProducts from "@/pages/adminDashboard/ManageProducts";
+import ManageUsers from "@/pages/adminDashboard/ManageUsers";
+import ProfileSetting from "@/pages/adminDashboard/ProfileSetting";
+import About from "@/pages/mainLayout/About";
+import Cart from "@/pages/mainLayout/Cart";
+import Checkout from "@/pages/mainLayout/Checkout";
+import Contact from "@/pages/mainLayout/Contact";
+import Home from "@/pages/mainLayout/Home";
+import ProductDetails from "@/pages/mainLayout/ProductDetails";
+import Products from "@/pages/mainLayout/Products";
+import SignIn from "@/pages/mainLayout/SignIn";
+import SignUp from "@/pages/mainLayout/SignUp";
+import VerifyOrders from "@/pages/mainLayout/VerifyOrders";
+import ManageProfile from "@/pages/userDashboard/ManageProfile";
+import MyOrders from "@/pages/userDashboard/MyOrders";
+import UserDashboard from "@/pages/userDashboard/UserDashboard";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -62,15 +69,21 @@ const router = createBrowserRouter([
   ],
 },
 {
-  path:"dashboard",
-  element:<Dashboard/>,
-  children:[
-    {
-      index:true,
-      element:<ManageAccount/>
-    },
-  ]
-}
+  path: "/dashboard",
+  element: <ProtectedRoutes><DashboardLayout/></ProtectedRoutes>,
+  children: [
+     //admin routes 
+    { path: "admin", element: <ProtectedRoutes role="admin"><AdminDashboard /></ProtectedRoutes> },
+    { path: "admin/manage-users", element: <ProtectedRoutes role="admin"><ManageUsers /></ProtectedRoutes> },
+    { path: "admin/manage-products", element: <ProtectedRoutes role="admin"><ManageProducts/></ProtectedRoutes> },
+    { path: "admin/manage-orders", element: <ProtectedRoutes role="admin"><ManageOrders/></ProtectedRoutes> },
+    { path: "admin/profile-settings", element: <ProtectedRoutes role="admin"><ProfileSetting/></ProtectedRoutes> },
+    //user routes
+    { path: "customer", element: <ProtectedRoutes role="customer"><UserDashboard /></ProtectedRoutes> },
+    { path: "customer/my-orders", element: <ProtectedRoutes role="customer"><MyOrders/></ProtectedRoutes> },
+    { path: "customer/manage-profile", element: <ProtectedRoutes role="customer"><ManageProfile/></ProtectedRoutes> },
+  ],
+},
 ]);
 
 export default router;

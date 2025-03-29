@@ -9,11 +9,13 @@ import {
 import { LogOutIcon } from "lucide-react";
 import { RxDashboard } from "react-icons/rx";
 import { useDispatch } from "react-redux";
-import { logout } from "@/redux/features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { logout, useCurrentUser } from "@/redux/features/auth/authSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/redux/hook";
 
 export function Menu() {
   const dispatch = useDispatch();
+  const user = useAppSelector(useCurrentUser);
   const navigate=useNavigate();
   return (
     <Menubar>
@@ -21,10 +23,12 @@ export function Menu() {
         <MenubarTrigger>
             <span className="text-4xl text-white bg-rose-500 rounded-full hidden lg:flex"> <FaRegCircleUser /></span>
         </MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>
+        <MenubarContent className="bg-white/70 backdrop-blur-xs ">
+       <Link to={`/dashboard/${user?.role}`}>
+       <MenubarItem>
           <RxDashboard /> Dashboard
           </MenubarItem>
+       </Link>
           <MenubarItem onClick={()=>{dispatch(logout());
             navigate('/sign-in')
           }}>
