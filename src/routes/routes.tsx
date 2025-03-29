@@ -1,10 +1,12 @@
 import ProtectedRoutes from "@/auth/ProtectedRoutes";
+import Dashboard from "@/components/layout/dashbaord/Dashboard";
 import MainLayout from "@/components/layout/mainLayout/MainLayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import Contact from "@/pages/Contact";
 import Home from "@/pages/Home";
+import ManageAccount from "@/pages/ManageAccount";
 import ProductDetails from "@/pages/ProductDetails";
 import Products from "@/pages/Products";
 import SignIn from "@/pages/SignIn";
@@ -56,6 +58,16 @@ const router = createBrowserRouter([
     {
       path:"/verify-orders",
       element:<ProtectedRoutes><VerifyOrders/></ProtectedRoutes>
+    },
+  ],
+},
+{
+  path:"dashboard",
+  element:<Dashboard/>,
+  children:[
+    {
+      index:true,
+      element:<ManageAccount/>
     },
   ]
 }
