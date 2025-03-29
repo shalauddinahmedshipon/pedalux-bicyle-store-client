@@ -4,7 +4,7 @@ import MainLayout from "@/components/layout/mainLayout/MainLayout";
 import AdminDashboard from "@/pages/adminDashboard/AdminDashboard";
 import ManageOrders from "@/pages/adminDashboard/ManageOrders";
 import ManageProducts from "@/pages/adminDashboard/ManageProducts";
-import ManageUsers from "@/pages/adminDashboard/ManageUsers";
+import { ManageUsers } from "@/pages/adminDashboard/ManageUsers";
 import ProfileSetting from "@/pages/adminDashboard/ProfileSetting";
 import About from "@/pages/mainLayout/About";
 import Cart from "@/pages/mainLayout/Cart";
