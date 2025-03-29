@@ -1,7 +1,5 @@
-
 import { CiMenuBurger } from "react-icons/ci";
 import "../../../../styles/navbar.css"
-
 
 import {
   Sheet,
@@ -10,6 +8,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Link, NavLink } from "react-router-dom";
+import { useAppSelector } from "@/redux/hook";
+import { useCurrentToken } from "@/redux/features/auth/authSlice";
+import { Menu } from "./DropdownMenu";
+import { LogOutIcon } from "lucide-react";
+
 
 
 
@@ -17,7 +20,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
 
-
+const token = useAppSelector(useCurrentToken);
 const routes =[
   {path:"/",label:"Home"},
   {path:"/products",label:"Products"},
@@ -51,18 +54,25 @@ const routes =[
     
   </ul>
      </div>
-
+ 
 
     {/* nav end  */}
     <div className="flex justify-center items-center gap-6">
-   
-  <Link to={'/sign-up'}>
-  <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-1 font-medium rounded-full hidden lg:flex">
-    Sign Up
-    </button></Link>
+      {
+        token?   
+       
+      <Menu/>
+        :
+        <Link to={'/sign-up'}>
+        <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-1 font-medium rounded-full hidden lg:flex">
+          Sign Up
+          </button></Link>
+      }
+
+
     </div>
 
-    
+    {/* sm and md device  */}
     <Sheet>
     <SheetTrigger asChild className="flex lg:hidden">
   <button className="text-2xl" aria-label="Open Navigation Menu">
@@ -88,14 +98,31 @@ const routes =[
       ))
     }
  
- 
+ {token&& <NavLink 
+        className={({ isActive }) => 
+          isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
+        } 
+        to={"/dashboard"}>
+        <li className="my-2">Dashboard</li>
+      </NavLink>}
      
     </ul>
-    <Link to={'/sign-up'}> 
-  <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-2 font-medium rounded-full w-full mt-5 mx-5">
-    Sign Up
+    {
+      token?
+      <Link to={'/sign-in'}> 
+  <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-2 font-medium rounded-full w-full mt-5 mx-5 flex items-center justify-center gap-4">
+    <LogOutIcon/>
+    Logout
     </button>
-    </Link>
+    </Link>:
+    <Link to={'/sign-up'}> 
+    <button className="text-rose-500 transition-colors duration-300 hover:bg-rose-500 hover:text-white border-rose-500 border-[1.5px] active:scale-95 px-6 py-2 font-medium rounded-full w-full mt-5 mx-5">
+      Sign Up
+      </button>
+      </Link>
+
+    }
+    
 </div>
   </SheetClose> 
       </SheetContent>

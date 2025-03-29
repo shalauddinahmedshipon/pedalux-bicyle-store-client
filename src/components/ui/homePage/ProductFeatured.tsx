@@ -2,6 +2,7 @@ import ProductCard, { IProduct } from "@/components/share/ProductCard";
 import { Button } from "../button";
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import Loader from "@/components/share/Loader";
+import { Link } from "react-router-dom";
 
 
 
@@ -28,7 +29,7 @@ if(isLoading) return <Loader/>
 
       {/* View All Button */}
       <div className="flex justify-center mt-10">
-       <Button > View All Bicycles →</Button>
+      <Link to={"/products"}> <Button > View All Bicycles →</Button></Link>
       </div>
     </section>
   );
