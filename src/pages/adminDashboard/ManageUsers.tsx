@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select"
 import Pagination from "@/components/share/Pagination";
 import { useState } from "react";
+import { InputSelect } from "@/components/share/InputSelect";
 
 export type TUser= {
   _id?: string;
@@ -37,12 +38,41 @@ export type TUser= {
 
 const ManageUsers = () => {
   const [page,setPage]=useState(1);
-  const limit =4
-  const {data:userData,isLoading}=useGetAllUsersQuery({page,limit});
+  const [currentRole,setCurrentRole]=useState("");
+  const [currentStatus,setCurrentStatus]=useState("");
+  const limit =10
+  const {data:userData,isLoading}=useGetAllUsersQuery({page,limit,filters:{
+    role:currentRole,status:currentStatus
+  }});
+
+  const roleOptions = [
+    { label: "All", value: "all" },
+    { label: "Admin", value: "admin" },
+    { label: "Customer", value: "customer" },
+  ];
+  const statusOptions = [
+    { label: "All", value: "all" },
+    { label: "Active", value: "active" },
+    { label: "Deactivated", value: "deactivated" },
+  ];
+
   if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
   return (
     <div >
      <div className="ml-10 mt-10">
+<header className="flex items-stretch justify-between gap-5 mb-8">
+  <h3 className="text-xl font-semibold text-black">User Management</h3>
+ <div className="flex items-center gap-5">
+    {/* filter by brand  */}
+    <div >
+  <InputSelect label="Filter by Role" options={roleOptions} onSelected={setCurrentRole}/>
+  </div>
+   {/* filter by status  */}
+   <div >
+  <InputSelect label="Filter by Status" options={statusOptions} onSelected={setCurrentStatus}/>
+  </div>
+ </div>
+</header>
 <Table className="overflow-auto">
   <TableCaption>A list of users</TableCaption>
   <TableHeader>
