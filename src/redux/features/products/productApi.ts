@@ -56,21 +56,6 @@ getSingleProduct: builders.query({
         }
       }
     }),
-getAllCategory: builders.query({
-      query: () =>{
-
-          return  {
-              url:'/categories',
-              method:"GET"
-              }         
-   
-      },
-      transformResponse:(response:any)=>{
-        return{
-          data:response?.data,
-        }
-      }
-    }),
 updateProduct: builders.mutation({
       query: ({ productId,updatedData}) => ({
         url: `/products/${productId}`,
@@ -90,4 +75,4 @@ deleteProduct: builders.mutation({
   })
 
 
-export const {useGetAllProductsQuery,useGetSingleProductQuery,useGetAllCategoryQuery,useDeleteProductMutation,useUpdateProductMutation,useCreateProductMutation}=productApi
+export const {useGetAllProductsQuery,useGetSingleProductQuery,useDeleteProductMutation,useUpdateProductMutation,useCreateProductMutation}=productApi

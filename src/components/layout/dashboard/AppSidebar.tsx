@@ -15,6 +15,7 @@ const AppSidebar = () => {
   const adminLinks = [
     { path: "/dashboard/admin", label: "Dashboard", icon: <RxDashboard /> },
     { path: "/dashboard/admin/manage-users", label: "Manage Users", icon: <FaUsers /> },
+    { path: "/dashboard/admin/manage-category", label: "Manage Category", icon: <FaBox /> },
     { path: "/dashboard/admin/manage-products", label: "Manage Products", icon: <FaBox /> },
     { path: "/dashboard/admin/manage-orders", label: "Manage Orders", icon: <FaJediOrder /> },
     { path: "/dashboard/admin/profile-settings", label: "Profile Settings", icon: <CiSettings /> },
@@ -30,8 +31,7 @@ const AppSidebar = () => {
   return (
     <div>
         <Sidebar>
-          <SidebarHeader>
-         
+          <SidebarHeader>    
           <div className="mx-auto">
           <Link to={"/"}>
             <img className="w-32" src="/src/assets/Black and White Modern Bicycle Shop Logo (3) (1).png"/>

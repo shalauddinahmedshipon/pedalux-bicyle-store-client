@@ -22,6 +22,7 @@ import MyOrders from "@/pages/userDashboard/MyOrders";
 import UserDashboard from "@/pages/userDashboard/UserDashboard";
 import { createBrowserRouter } from "react-router-dom";
 import CreateProduct from "@/pages/adminDashboard/productManagement/CreateProduct";
+import ManageCategory from "@/pages/adminDashboard/categoryManagement/ManageCategory";
 
 const router = createBrowserRouter([
 {
@@ -77,6 +78,7 @@ const router = createBrowserRouter([
      //admin routes 
     { path: "admin", element: <ProtectedRoutes role="admin"><AdminDashboard /></ProtectedRoutes> },
     { path: "admin/manage-users", element: <ProtectedRoutes role="admin"><ManageUsers/></ProtectedRoutes> },
+    { path: "admin/manage-category", element: <ProtectedRoutes role="admin"><ManageCategory/></ProtectedRoutes> },
     { path: "admin/manage-products", element: <ProtectedRoutes role="admin"><ManageProducts/></ProtectedRoutes> },
     { path: "admin/create-product", element: <ProtectedRoutes role="admin"><CreateProduct/></ProtectedRoutes> },
     { path: "admin/update-product/:id", element: <ProtectedRoutes role="admin"><UpdateProduct/></ProtectedRoutes> },

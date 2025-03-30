@@ -24,8 +24,7 @@ import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
 import { toast } from "sonner";
 import { TUser } from "@/components/types/User.types";
-
-
+import { roleOptions, statusOptions } from "@/utils/filterOptions";
 
 
 const ManageUsers = () => {
@@ -89,22 +88,10 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
   }
 };
 
-
-  const roleOptions = [
-    { label: "All", value: "all" },
-    { label: "Admin", value: "admin" },
-    { label: "Customer", value: "customer" },
-  ];
-  const statusOptions = [
-    { label: "All", value: "all" },
-    { label: "Active", value: "active" },
-    { label: "Deactivated", value: "deactivated" },
-  ];
-
- 
+ if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
   return (
     <div className="w-full">
-     <div className=" ml-10 mt-10">
+     <div className=" mx-10 mt-10">
 <header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8 w-full">
   <h3 className="text-2xl font-semibold text-black">User Management</h3>
  <div className="flex items-center gap-5">
@@ -119,9 +106,8 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
   </div>
  </div>
 </header>
-{
-  isLoading?<div className="w-full h-full left-[5%] fixed"> <Loader/></div>:
-  <Table key={refreshKey} className="overflow-auto">
+
+<Table key={refreshKey} className="overflow-auto">
   <TableCaption>A list of users</TableCaption>
   <TableHeader>
     <TableRow >
@@ -176,8 +162,6 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
         ))}
   </TableBody>
 </Table>
-}
-
 
  {/* pagination  */}
  <div className="my-14">

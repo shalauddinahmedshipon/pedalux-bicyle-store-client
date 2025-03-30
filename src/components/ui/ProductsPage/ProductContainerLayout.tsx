@@ -1,15 +1,17 @@
-import ProductCard, { IProduct } from "@/components/share/ProductCard";
+import ProductCard from "@/components/share/ProductCard";
 import { Input } from "../input";
 import { FilterIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
-import { useGetAllCategoryQuery, useGetAllProductsQuery } from "@/redux/features/products/productApi";
+import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import Pagination from "@/components/share/Pagination";
 import { InputSelect } from "@/components/share/InputSelect";
 import PriceRangeSlider from "./PriceRangeSlider";
 import InputCheckbox from "@/components/share/InputCheckbox";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../sheet";
+import { Sheet, SheetContent, SheetTrigger } from "../sheet";
 import Loader from "@/components/share/Loader";
-
+import { IProduct } from "@/components/types/Product.types";
+import { brandOptions, modelOptions, sortOptions, stockOptions } from "@/utils/filterOptions";
+import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 
 
 const ProductContainerLayout = () => {
@@ -39,51 +41,9 @@ const categoryOptions =[{label:"All",value:"all"},...(categoryData?.data.map((it
   }
 ))||[])]
 
-const brandOptions=[
-  {"label":"All","value":"all"},
-  { "label": "Trek", "value": "Trek" },
-  { "label": "Giant", "value": "Giant" },
-  { "label": "Schwinn", "value": "Schwinn" },
-  { "label": "Huffy", "value": "Huffy" },
-  { "label": "Cannondale", "value": "Cannondale" },
-  { "label": "Specialized", "value": "Specialized" },
-  { "label": "Rad Power", "value": "Rad Power" },
-  { "label": "Mongoose", "value": "Mongoose" },
-  { "label": "Haro", "value": "Haro" }
-]
-
-const modelOptions = [
-  { label: "SP-2900", value: "SP-2900" },
-  { label: "RCX-500", value: "RCX-500" },
-  { label: "SC-200", value: "SC-200" },
-  { label: "CW-100", value: "CW-100" },
-  { label: "UE-700", value: "UE-700" },
-  { label: "MG-550", value: "MG-550" },
-  { label: "CG-300", value: "CG-300" },
-  { label: "PB-500", value: "PB-500" },
-  { label: "SS-360", value: "SS-360" },
-  { label: "FPX-250", value: "FPX-250" },
-];
-const stockOptions = [
-  { label: "All", value: "all" },
-  { label: "In Stock", value: "inStock" },
-  { label: "Out Of Stock", value: "outOfStock" },
-];
-
-const sortOptions = [
-
-  { label: "Price: Low to High", value: "priceAsc" },
-  { label: "Price: High to Low", value: "priceDesc" },
-  { label: "Newest First", value: "newest" },
-  { label: "Oldest First", value: "oldest" },
-  { label: "Stock: Low to High", value: "stockAsc" },
-  { label: "Stock: High to Low", value: "stockDesc" },
-];
 
 
-console.log(category)
 
-// if(isLoading)return <div className="bg-black">Loading...</div>
 
   return (
     <section className="w-full flex mt-10 lg:mt-24 min-h-screen gap-10">

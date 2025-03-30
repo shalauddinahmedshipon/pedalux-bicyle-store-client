@@ -13,18 +13,33 @@ import Pagination from "@/components/share/Pagination";
 import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
 import { toast } from "sonner";
-import { useDeleteProductMutation, useGetAllProductsQuery } from "@/redux/features/products/productApi";
+import { useDeleteProductMutation,useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import { IProduct } from "@/components/types/Product.types";
 import { CiEdit } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { stockOptions } from "@/utils/filterOptions";
+import { Button } from "@/components/ui/button";
+import { IoIosAdd } from "react-icons/io";
+import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
+import { RxReload } from "react-icons/rx";
 
 const ManageProducts = () => {
   const [page,setPage]=useState(1);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [category,setCategory]=useState("");
+  const [selectedStock, setSelectedStock] = useState(""); 
   const limit =10
   const {data:productData,isLoading}=useGetAllProductsQuery({page,limit,filters:{
-
+    category,  stock:selectedStock,
   }});
+  const {data:categoryData}=useGetAllCategoryQuery(undefined);
+  
+  const categoryOptions =[{label:"All",value:"all"},...(categoryData?.data.map((item:any)=>(
+    {
+      label:item?.name,
+      value:item?._id
+    }
+  ))||[])]
+
 const [deleteAction]=useDeleteProductMutation();
 const handleDelete=async(id:string)=>{
   toast("Are you sure you want to delete?", {
@@ -47,37 +62,30 @@ const handleDelete=async(id:string)=>{
     },
   });
 }
-// const handleRoleChange=async(userId:string,role:string)=>{
-//   const id=toast.loading("Updating...")
-// try {
-//   console.log(userId,role)
-//   const res =await updateRole({userId,role:role}).unwrap();
-// toast.success(res.message,{id})
-// setSelectedRoles((prev) => ({ ...prev, [userId]: role }));
-// setRefreshKey((prev) => prev + 1);
-// } catch (error:any) {
-//   toast.error(error.data.message||"failed to update",{id})
-// }
-// }
- 
+
+ if(isLoading) return <div className="w-full h-full left-[5%] fixed "> <Loader/></div>
   return (
     <div className="w-full">
-     <div className=" ml-10 mt-10">
+     <div className=" mx-10 mt-10">
+<h3 className="text-2xl font-semibold text-black mb-5">Product Management</h3>
 <header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8 w-full">
-  <h3 className="text-2xl font-semibold text-black">Product Management</h3>
- <div className="flex items-center gap-5">
   
-    {/* filter by brand  */}
-    {/* <div >
-  <InputSelect label="Filter by Role" options={roleOptions} onSelected={setCurrentRole}/>
-  </div> */}
-   {/* filter by status  */}
-   
+  <Link to={"/dashboard/admin/create-product"}>
+  <Button variant={"outline"} className="text-rose-500 border-rose-500"><span><IoIosAdd/></span>Add New Product</Button>
+  </Link>
+ <div className="flex items-center gap-5">
+ <Button onClick={()=>window.location.reload()}><span><RxReload/></span>Refresh</Button>
+       {/*filter by category  */}
+       <div>
+  <InputSelect label="Select a category" options={categoryOptions} onSelected={setCategory}/>
+  </div>
+      {/*filter by stock  */}
+      <div >
+  <InputSelect label="Available" options={stockOptions} onSelected={setSelectedStock}/>
+  </div>
  </div>
 </header>
-{
-  isLoading?<div className="w-full h-full left-[5%] fixed"> <Loader/></div>:
-  <Table key={refreshKey} className="overflow-auto">
+<Table className="overflow-auto">
   <TableCaption>A list of products</TableCaption>
   <TableHeader>
     <TableRow >
@@ -131,8 +139,6 @@ const handleDelete=async(id:string)=>{
         ))}
   </TableBody>
 </Table>
-}
-
 
  {/* pagination  */}
  <div className="my-14">
