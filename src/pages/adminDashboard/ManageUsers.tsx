@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useGetAllUsersQuery } from "@/redux/features/users/userApi";
+import { useDeleteUserMutation, useGetAllUsersQuery } from "@/redux/features/users/userApi";
 import { AiOutlineDelete } from "react-icons/ai";
 import {
   Select,
@@ -22,6 +22,7 @@ import {
 import Pagination from "@/components/share/Pagination";
 import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
+import { toast } from "sonner";
 
 export type TUser= {
   _id?: string;
@@ -44,6 +45,31 @@ const ManageUsers = () => {
   const {data:userData,isLoading}=useGetAllUsersQuery({page,limit,filters:{
     role:currentRole,status:currentStatus
   }});
+  const [deleteAction]=useDeleteUserMutation();
+
+
+const handleDelete=async(id:string)=>{
+  toast("Are you sure you want to delete?", {
+    action: {
+      label: "Confirm",
+      onClick: async() => {
+        const toastId = toast.loading("Deleting...");
+    try {
+      const res=await deleteAction(id).unwrap();
+      toast.success(res.message,{id:toastId})
+    } catch (error:any) {
+      toast.error(error.message||"Failed to delete!", { id: toastId, duration: 3000 })
+    }
+
+      },
+    },
+    cancel: {
+      label: "Cancel",
+      onClick: () => toast.info("Deletion canceled"),
+    },
+  });
+}
+
 
   const roleOptions = [
     { label: "All", value: "all" },
@@ -60,7 +86,7 @@ const ManageUsers = () => {
   return (
     <div >
      <div className="ml-10 mt-10">
-<header className="flex items-stretch justify-between gap-5 mb-8">
+<header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8">
   <h3 className="text-xl font-semibold text-black">User Management</h3>
  <div className="flex items-center gap-5">
     {/* filter by brand  */}
@@ -113,7 +139,7 @@ const ManageUsers = () => {
       </SelectContent>
     </Select>
             </TableCell>
-            <TableCell ><span className="text-xl text-red-600"><AiOutlineDelete /></span></TableCell>
+            <TableCell ><span onClick={()=>handleDelete(user._id as string)} className="text-xl text-red-600 active:scale-95"><AiOutlineDelete /></span></TableCell>
           </TableRow>
         ))}
   </TableBody>
