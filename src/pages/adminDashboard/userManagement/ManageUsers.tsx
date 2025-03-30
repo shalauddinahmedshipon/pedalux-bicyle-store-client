@@ -23,7 +23,7 @@ import Pagination from "@/components/share/Pagination";
 import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
 import { toast } from "sonner";
-import { TUser } from "@/components/types/User.types";
+import { TUser } from "@/types/User.types";
 import { roleOptions, statusOptions } from "@/utils/filterOptions";
 
 

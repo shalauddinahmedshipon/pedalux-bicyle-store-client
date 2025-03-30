@@ -14,7 +14,7 @@ import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
 import { toast } from "sonner";
 import { useDeleteProductMutation,useGetAllProductsQuery } from "@/redux/features/products/productApi";
-import { IProduct } from "@/components/types/Product.types";
+import { IProduct } from "@/types/Product.types";
 import { CiEdit } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { stockOptions } from "@/utils/filterOptions";

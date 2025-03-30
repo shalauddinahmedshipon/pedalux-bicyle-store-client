@@ -52,8 +52,8 @@ updateCategory: builders.mutation({
     }),
 deleteCategory: builders.mutation({
       query: (categoryId) => ({
-        url: `/categories/${categoryId}/soft-delete`,
-        method: 'PATCH',
+        url: `/categories/${categoryId}`,
+        method: 'Delete',
       }),
       invalidatesTags: ["category"],
     }), 

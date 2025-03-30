@@ -9,7 +9,7 @@ import PriceRangeSlider from "./PriceRangeSlider";
 import InputCheckbox from "@/components/share/InputCheckbox";
 import { Sheet, SheetContent, SheetTrigger } from "../sheet";
 import Loader from "@/components/share/Loader";
-import { IProduct } from "@/components/types/Product.types";
+import { IProduct } from "@/types/Product.types";
 import { brandOptions, modelOptions, sortOptions, stockOptions } from "@/utils/filterOptions";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 

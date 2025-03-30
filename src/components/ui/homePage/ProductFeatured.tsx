@@ -3,7 +3,7 @@ import { Button } from "../button";
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import Loader from "@/components/share/Loader";
 import { Link } from "react-router-dom";
-import { IProduct } from "@/components/types/Product.types";
+import { IProduct } from "@/types/Product.types";
 
 
 const ProductFeatured = () => {

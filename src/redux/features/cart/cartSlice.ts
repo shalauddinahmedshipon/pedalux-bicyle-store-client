@@ -1,4 +1,4 @@
-import { IProduct } from "@/components/types/Product.types";
+import { IProduct } from "@/types/Product.types";
 import { RootState } from "@/redux/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

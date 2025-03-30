@@ -7,7 +7,7 @@ import Loader from "@/components/share/Loader";
 import { useAppDispatch} from "@/redux/hook";
 import { addToCart} from "@/redux/features/cart/cartSlice";
 import { useState } from "react";
-import { IProduct } from "@/components/types/Product.types";
+import { IProduct } from "@/types/Product.types";
 
 
 

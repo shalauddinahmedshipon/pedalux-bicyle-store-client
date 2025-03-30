@@ -1,6 +1,6 @@
 import AppForm from "@/components/forms/AppForm";
 import AppInput from "@/components/forms/AppInput";
-import { signinSchema } from "@/components/schema/authSchemaValidation";
+import { signinSchema } from "@/schema/authSchemaValidation";
 import { Button } from "@/components/ui/button";
 import { useSignInMutation } from "@/redux/features/auth/authApi";
 import { setUser, useCurrentToken } from "@/redux/features/auth/authSlice";

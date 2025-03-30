@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import { IProduct } from "../types/Product.types";
+import { IProduct } from "../../types/Product.types";
 
 
 

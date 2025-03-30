@@ -9,20 +9,10 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { AiOutlineDelete } from "react-icons/ai";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { toast } from "sonner";
 import { useDeleteCategoryMutation, useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { CiEdit } from "react-icons/ci";
-import { Button } from "@/components/ui/button";
-import { IoIosAdd } from "react-icons/io";
+import { CreateCategory } from "@/components/layout/dashboard/admin/CreateCategoryDialog";
 
 
 
@@ -59,7 +49,8 @@ const handleDelete=async(id:string)=>{
      <div className=" ml-10 mt-10">
 <header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8 w-full">
   <h3 className="text-2xl font-semibold text-black">Category Management</h3>
-    <Button variant={"outline"} className="text-rose-500 border-rose-500"><span><IoIosAdd/></span>Add New Category</Button>
+  <CreateCategory/>
+   
 </header>
 
 <Table  className="overflow-auto">

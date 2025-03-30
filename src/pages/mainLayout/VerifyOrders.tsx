@@ -10,7 +10,7 @@ import { CheckCircle, AlertCircle } from "lucide-react";
 import { Link, useSearchParams } from "react-router";
 import { useVerifyOrderQuery } from "@/redux/features/order/orderApi";
 import Loader from "@/components/share/Loader";
-import { OrderData } from "@/components/types/Order.types";
+import { OrderData } from "@/types/Order.types";
 
 export default function VerifyOrders() {
   const [searchParams] = useSearchParams();
