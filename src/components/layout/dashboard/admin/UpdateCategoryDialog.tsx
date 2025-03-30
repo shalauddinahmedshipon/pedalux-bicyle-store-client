@@ -10,23 +10,42 @@ import {
 } from "@/components/ui/dialog"
 
 import { Button } from "@/components/ui/button"
-import { useCreateCategoryMutation } from "@/redux/features/category/categoryApi"
+import { useCreateCategoryMutation, useGetSingleCategoryQuery, useUpdateCategoryMutation } from "@/redux/features/category/categoryApi"
 import { categorySchema } from "@/schema/productSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FieldValues, UseFormReturn } from "react-hook-form"
-import { IoIosAdd } from "react-icons/io"
 import { toast } from "sonner"
 import { useState } from "react"
+import { CiEdit } from "react-icons/ci"
+import Loader from "@/components/share/Loader"
 
-
-export function CreateCategory() {
+export function UpdateCategory({id}:{id:string}) {
   const [open, setOpen] = useState(false); 
-  const [createCategory]=useCreateCategoryMutation();
-  const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
-    console.log(data)
+  const {data:categoryData,isLoading}=useGetSingleCategoryQuery(id);
+  const [updateCategory]=useUpdateCategoryMutation();
+
+  const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>,defaultValues:Record<string,unknown>)=>{
+
+//get updated fields value only 
+const updatedData = Object.keys(data).reduce((acc,key)=>{
+if(data[key]!==defaultValues[key]&&data[key]!==""){
+ acc[key]=data[key]
+}
+return acc
+},{} as Record<string,unknown>) 
+     
+     if(!Object.keys(updatedData).length){
+       toast.info("No Change detected!...")
+       return
+     }
+     
+     const args ={
+       categoryId:categoryData?.data?._id,updatedData
+     }
+
       const id = toast.loading("Creating...")
       try {
-       const res=await createCategory(data).unwrap();
+       const res=await updateCategory(args).unwrap();
        toast.success(res.message,{id:id})
        methods.reset(); 
        setOpen(false);   
@@ -35,12 +54,13 @@ export function CreateCategory() {
         toast.error(error.data.message,{id:id})
       }
     }
+if(isLoading) return <Loader/>
 const defaultValues={
-  name:""
+  name:categoryData?.data?.name
 }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-    <DialogTrigger><Button variant={"outline"} className="text-rose-500 border-rose-500"><span><IoIosAdd/></span>Add New Category</Button></DialogTrigger>
+    <DialogTrigger>  <span className="text-2xl text-violet-700 active:scale-95"><CiEdit /></span></DialogTrigger>
     <DialogContent>
       <DialogHeader>
         <DialogTitle></DialogTitle>
@@ -50,7 +70,7 @@ const defaultValues={
  <AppInput label="Category Name" name="name" type="text" placeholder="Category Name"/>
  <div className="flex justify-end gap-5 mt-5">
  <Button onClick={()=>setOpen(false)} variant="outline">Cancel</Button>
- <Button   type="submit">Create</Button>
+ <Button   type="submit">Update</Button>
  </div>
  </AppForm> 
         </DialogDescription>

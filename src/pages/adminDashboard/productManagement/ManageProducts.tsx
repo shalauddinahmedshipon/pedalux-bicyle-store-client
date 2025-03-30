@@ -130,7 +130,7 @@ const handleDelete=async(id:string)=>{
             <TableCell >
              <div className="flex items-center justify-start gap-5">
              <Link to={`/update-product/${product._id}`}>
-            <span className="text-3xl text-violet-700 active:scale-95"><CiEdit /></span>
+            <span className="text-2xl text-violet-700 active:scale-95"><CiEdit /></span>
               </Link>
               <span onClick={()=>handleDelete(product._id as string)} className="text-2xl text-red-600 active:scale-95"><AiOutlineDelete /></span>
              </div>

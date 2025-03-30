@@ -11,8 +11,8 @@ import {
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "sonner";
 import { useDeleteCategoryMutation, useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
-import { CiEdit } from "react-icons/ci";
 import { CreateCategory } from "@/components/layout/dashboard/admin/CreateCategoryDialog";
+import { UpdateCategory } from "@/components/layout/dashboard/admin/UpdateCategoryDialog";
 
 
 
@@ -70,7 +70,7 @@ const handleDelete=async(id:string)=>{
  
             <TableCell >
               <div className="flex justify-end item-center gap-5">
-              <span className="text-3xl text-violet-700 active:scale-95"><CiEdit /></span>
+                <UpdateCategory id={category._id}/>
               <span onClick={()=>handleDelete(category._id as string)} className="text-xl text-red-600 active:scale-95"><AiOutlineDelete /></span>
               </div>
          </TableCell>
