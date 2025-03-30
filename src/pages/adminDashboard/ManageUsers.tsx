@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useDeleteUserMutation, useGetAllUsersQuery, useUpdateUserRoleMutation } from "@/redux/features/users/userApi";
+import { useChangeUserStatusMutation, useDeleteUserMutation, useGetAllUsersQuery, useUpdateUserRoleMutation } from "@/redux/features/users/userApi";
 import { AiOutlineDelete } from "react-icons/ai";
 import {
   Select,
@@ -23,7 +23,7 @@ import Pagination from "@/components/share/Pagination";
 import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+
 
 export type TUser= {
   _id?: string;
@@ -42,6 +42,7 @@ const ManageUsers = () => {
   const [page,setPage]=useState(1);
   const [currentRole,setCurrentRole]=useState("");
   const [selectedRoles, setSelectedRoles] = useState<{ [key: string]: string }>({});
+  const [userStatuses, setUserStatuses] = useState<Record<string, "active" | "deactivated">>({});
   const [refreshKey, setRefreshKey] = useState(0);
   const [currentStatus,setCurrentStatus]=useState("");
   const limit =10
@@ -50,6 +51,7 @@ const ManageUsers = () => {
   }});
   const [deleteAction]=useDeleteUserMutation();
   const [updateRole]=useUpdateUserRoleMutation();
+  const [updateStatus]=useChangeUserStatusMutation();
 
 const handleDelete=async(id:string)=>{
   toast("Are you sure you want to delete?", {
@@ -84,6 +86,18 @@ setRefreshKey((prev) => prev + 1);
   toast.error(error.data.message||"failed to update",{id})
 }
 }
+const handleStatusChange = async (userId: string, currentStatus: "active" | "deactivated") => {
+  const newStatus = currentStatus === "active" ? "deactivated" : "active";
+  const toastId = toast.loading("Updating status...");
+  try {
+    const res = await updateStatus({ userId, status: newStatus }).unwrap();
+    toast.success(res.message, { id: toastId });
+    setUserStatuses((prev) => ({ ...prev, [userId]: newStatus }));
+    setRefreshKey((prev) => prev + 1);
+  } catch (error: any) {
+    toast.error(error.data?.message || "Failed to update status", { id: toastId });
+  }
+};
 
 
   const roleOptions = [
@@ -97,7 +111,7 @@ setRefreshKey((prev) => prev + 1);
     { label: "Deactivated", value: "deactivated" },
   ];
 
-  // if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
+ 
   return (
     <div className="w-full">
      <div className=" ml-10 mt-10">
@@ -141,10 +155,16 @@ setRefreshKey((prev) => prev + 1);
             {/* update status change  */}
             <TableCell >
               
-<label className="inline-flex items-center cursor-pointer">
-  <input type="checkbox" value="" className="sr-only peer"/>
-  <div className="relative w-8 h-4 bg-gray-200 peer-focus:outline-none  peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+            <label className="inline-flex items-center cursor-pointer">
+  <input
+    type="checkbox"
+    className="sr-only peer"
+    checked={(userStatuses[user._id!] ?? user.status) === "active"}
+    onChange={() => handleStatusChange(user._id as string, user.status!)}
+  />
+  <div className="relative w-8 h-4 bg-gray-200 peer-focus:outline-none peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
 </label>
+
             </TableCell>
 
                    {/* update role cell */}
