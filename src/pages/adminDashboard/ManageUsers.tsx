@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useDeleteUserMutation, useGetAllUsersQuery } from "@/redux/features/users/userApi";
+import { useDeleteUserMutation, useGetAllUsersQuery, useUpdateUserRoleMutation } from "@/redux/features/users/userApi";
 import { AiOutlineDelete } from "react-icons/ai";
 import {
   Select,
@@ -23,6 +23,7 @@ import Pagination from "@/components/share/Pagination";
 import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 export type TUser= {
   _id?: string;
@@ -40,13 +41,15 @@ export type TUser= {
 const ManageUsers = () => {
   const [page,setPage]=useState(1);
   const [currentRole,setCurrentRole]=useState("");
+  const [selectedRoles, setSelectedRoles] = useState<{ [key: string]: string }>({});
+  const [refreshKey, setRefreshKey] = useState(0);
   const [currentStatus,setCurrentStatus]=useState("");
   const limit =10
   const {data:userData,isLoading}=useGetAllUsersQuery({page,limit,filters:{
     role:currentRole,status:currentStatus
   }});
   const [deleteAction]=useDeleteUserMutation();
-
+  const [updateRole]=useUpdateUserRoleMutation();
 
 const handleDelete=async(id:string)=>{
   toast("Are you sure you want to delete?", {
@@ -69,6 +72,18 @@ const handleDelete=async(id:string)=>{
     },
   });
 }
+const handleRoleChange=async(userId:string,role:string)=>{
+  const id=toast.loading("Updating...")
+try {
+  console.log(userId,role)
+  const res =await updateRole({userId,role:role}).unwrap();
+toast.success(res.message,{id})
+setSelectedRoles((prev) => ({ ...prev, [userId]: role }));
+setRefreshKey((prev) => prev + 1);
+} catch (error:any) {
+  toast.error(error.data.message||"failed to update",{id})
+}
+}
 
 
   const roleOptions = [
@@ -82,13 +97,14 @@ const handleDelete=async(id:string)=>{
     { label: "Deactivated", value: "deactivated" },
   ];
 
-  if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
+  // if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
   return (
-    <div >
-     <div className="ml-10 mt-10">
-<header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8">
+    <div className="w-full">
+     <div className=" ml-10 mt-10">
+<header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8 w-full">
   <h3 className="text-xl font-semibold text-black">User Management</h3>
  <div className="flex items-center gap-5">
+  
     {/* filter by brand  */}
     <div >
   <InputSelect label="Filter by Role" options={roleOptions} onSelected={setCurrentRole}/>
@@ -99,7 +115,9 @@ const handleDelete=async(id:string)=>{
   </div>
  </div>
 </header>
-<Table className="overflow-auto">
+{
+  isLoading?<div className="w-full h-full left-[5%] fixed"> <Loader/></div>:
+  <Table key={refreshKey} className="overflow-auto">
   <TableCaption>A list of users</TableCaption>
   <TableHeader>
     <TableRow >
@@ -119,6 +137,8 @@ const handleDelete=async(id:string)=>{
             <TableCell>{user.email}</TableCell>
             <TableCell className="pr-14"><span className={`px-2 border flex items-center justify-center rounded-full ${user.role==="admin"?"bg-blue-50 text-blue-500":"bg-rose-50 text-rose-500"}`}>{user.role}</span></TableCell>
             <TableCell className="flex gap-3 items-center"><div className={`w-3 h-3 rounded-full ${user.status==="active"?"bg-green-500":"bg-red-500"}`}></div>{user.status}</TableCell>
+
+            {/* update status change  */}
             <TableCell >
               
 <label className="inline-flex items-center cursor-pointer">
@@ -126,10 +146,12 @@ const handleDelete=async(id:string)=>{
   <div className="relative w-8 h-4 bg-gray-200 peer-focus:outline-none  peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
 </label>
             </TableCell>
+
+                   {/* update role cell */}
             <TableCell className="flex gap-3 items-center">
-            <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Change Role" />
+            <Select onValueChange={(value)=>handleRoleChange(user._id as string,value)}>
+      <SelectTrigger  className="w-[180px]">
+      <SelectValue placeholder={selectedRoles[user._id!] ?? user.role ?? "Change Role"} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -144,6 +166,8 @@ const handleDelete=async(id:string)=>{
         ))}
   </TableBody>
 </Table>
+}
+
 
  {/* pagination  */}
  <div className="my-14">

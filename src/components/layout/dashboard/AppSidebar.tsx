@@ -5,7 +5,7 @@ import { CiSettings, CiShoppingBasket } from "react-icons/ci";
 import { FaBox, FaJediOrder, FaUsers } from "react-icons/fa6";
 import { IoMdLogOut, IoMdSettings } from "react-icons/io";
 import { RxDashboard, RxHome } from "react-icons/rx";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 
 const AppSidebar = () => {
@@ -31,9 +31,13 @@ const AppSidebar = () => {
     <div>
         <Sidebar>
           <SidebarHeader>
-            <div className="mx-auto">
+         
+          <div className="mx-auto">
+          <Link to={"/"}>
             <img className="w-32" src="/src/assets/Black and White Modern Bicycle Shop Logo (3) (1).png"/>
+            </Link>
             </div>
+        
 
           </SidebarHeader>
       <SidebarContent>
