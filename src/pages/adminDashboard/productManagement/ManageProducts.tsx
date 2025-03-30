@@ -31,6 +31,7 @@ const ManageProducts = () => {
   const {data:productData,isLoading}=useGetAllProductsQuery({page,limit,filters:{
     category,  stock:selectedStock,
   }});
+  
   const {data:categoryData}=useGetAllCategoryQuery(undefined);
   
   const categoryOptions =[{label:"All",value:"all"},...(categoryData?.data.map((item:any)=>(
@@ -38,9 +39,11 @@ const ManageProducts = () => {
       label:item?.name,
       value:item?._id
     }
-  ))||[])]
+  ))||[])];
 
+  
 const [deleteAction]=useDeleteProductMutation();
+
 const handleDelete=async(id:string)=>{
   toast("Are you sure you want to delete?", {
     action: {

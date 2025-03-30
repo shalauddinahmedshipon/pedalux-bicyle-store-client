@@ -21,7 +21,13 @@ const AppInput = ({label,name,type,placeholder,disabled}:TInputProps) => {
             <FormItem>
               <FormLabel>{label}</FormLabel>
               <FormControl>
-                <Input className="py-6" {...field} ref={field.ref} type={type} disabled={disabled} placeholder={placeholder}   aria-invalid={error ? "true" : "false"} />
+                {type==="number"?
+                 <Input className="py-6 w-full" {...field} ref={field.ref} type={type} disabled={disabled} placeholder={placeholder}
+                 onChange={(e) =>{type==="number"&&field.onChange(Number(e.target.value))}}  aria-invalid={error ? "true" : "false"} />
+                : 
+                <Input className="py-6 w-full" {...field} ref={field.ref} type={type} disabled={disabled} placeholder={placeholder}
+                 aria-invalid={error ? "true" : "false"} />}
+               
               </FormControl>
              
               {error && <FormMessage>{error.message}</FormMessage>}

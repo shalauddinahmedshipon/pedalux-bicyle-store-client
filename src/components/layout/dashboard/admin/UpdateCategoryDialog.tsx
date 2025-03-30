@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { Button } from "@/components/ui/button"
-import { useCreateCategoryMutation, useGetSingleCategoryQuery, useUpdateCategoryMutation } from "@/redux/features/category/categoryApi"
+import { useGetSingleCategoryQuery, useUpdateCategoryMutation } from "@/redux/features/category/categoryApi"
 import { categorySchema } from "@/schema/productSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FieldValues, UseFormReturn } from "react-hook-form"

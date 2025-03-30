@@ -9,7 +9,8 @@ createProduct: builders.mutation({
             method:"POST",
             body:productData
             }    
-    }
+    },
+    invalidatesTags: ['product'],
   }),
 getAllProducts: builders.query({
 query: ({page=1,limit=9,search="",filters}) =>{
@@ -32,6 +33,7 @@ query: ({page=1,limit=9,search="",filters}) =>{
               method:"GET"
               }
       },
+      providesTags:["product"],
       transformResponse:(response:any)=>{
         return{
           data:response?.data,
@@ -49,6 +51,7 @@ getSingleProduct: builders.query({
           
    
       },
+      providesTags:["product"],
       transformResponse:(response:any)=>{
         return{
           data:response?.data,
@@ -67,7 +70,7 @@ updateProduct: builders.mutation({
 deleteProduct: builders.mutation({
       query: (productId) => ({
         url: `/products/${productId}`,
-        method: 'PATCH',
+        method: 'DELETE',
       }),
       invalidatesTags: ['product'],
     }), 

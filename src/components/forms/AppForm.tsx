@@ -7,7 +7,7 @@ type TFormConfig={
 type TFormProps={
   onSubmit:(data:FieldValues,
     methods: UseFormReturn<FieldValues>,
-    defaultValues:Record<string,unknown>)=>Promise<void>;
+    defaultValues?:Record<string,unknown>)=>Promise<void>;
   children:ReactNode;
 }&TFormConfig
 

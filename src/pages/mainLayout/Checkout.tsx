@@ -2,7 +2,6 @@ import AppForm from "@/components/forms/AppForm";
 import AppInput from "@/components/forms/AppInput";
 import { shippingSchema } from "@/schema/checkoutScheme";
 import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/redux/features/auth/authSlice";
 import { ICartItem, useCartItems, useTotalPrice } from "@/redux/features/cart/cartSlice";
 import { useCreateOrderMutation } from "@/redux/features/order/orderApi";
 import { useAppSelector } from "@/redux/hook";
@@ -12,7 +11,6 @@ import { toast } from "sonner";
 
 
 const Checkout = () => {
- const user = useAppSelector(useCurrentUser);
  const cartItems = useAppSelector(useCartItems);
  const totalPrice = useAppSelector(useTotalPrice);
  const [createOrder]=useCreateOrderMutation();
