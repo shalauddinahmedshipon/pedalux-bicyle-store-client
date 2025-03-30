@@ -2,11 +2,12 @@ import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
-import ProductCard, { IProduct } from "@/components/share/ProductCard";
+import ProductCard from "@/components/share/ProductCard";
 import Loader from "@/components/share/Loader";
 import { useAppDispatch} from "@/redux/hook";
 import { addToCart} from "@/redux/features/cart/cartSlice";
 import { useState } from "react";
+import { IProduct } from "@/components/types/Product.types";
 
 
 

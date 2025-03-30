@@ -1,11 +1,9 @@
-import ProductCard, { IProduct } from "@/components/share/ProductCard";
+import ProductCard from "@/components/share/ProductCard";
 import { Button } from "../button";
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import Loader from "@/components/share/Loader";
 import { Link } from "react-router-dom";
-
-
-
+import { IProduct } from "@/components/types/Product.types";
 
 
 const ProductFeatured = () => {

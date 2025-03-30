@@ -23,20 +23,10 @@ import Pagination from "@/components/share/Pagination";
 import { useState } from "react";
 import { InputSelect } from "@/components/share/InputSelect";
 import { toast } from "sonner";
+import { TUser } from "@/components/types/User.types";
 
 
-export type TUser= {
-  _id?: string;
-  name: string;
-  email: string;
-  password: string;
-  passwordChangedAt?: Date;
-  status?: 'active' | 'deactivated';
-  role?:  "admin" | "customer";
-  isDeleted?:boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+
 
 const ManageUsers = () => {
   const [page,setPage]=useState(1);
@@ -116,7 +106,7 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
     <div className="w-full">
      <div className=" ml-10 mt-10">
 <header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8 w-full">
-  <h3 className="text-xl font-semibold text-black">User Management</h3>
+  <h3 className="text-2xl font-semibold text-black">User Management</h3>
  <div className="flex items-center gap-5">
   
     {/* filter by brand  */}

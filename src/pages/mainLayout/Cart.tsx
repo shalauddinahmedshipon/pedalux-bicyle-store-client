@@ -1,4 +1,3 @@
-
 import { RxCross2 } from "react-icons/rx";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";

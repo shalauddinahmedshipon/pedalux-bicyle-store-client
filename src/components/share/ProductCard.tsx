@@ -1,33 +1,10 @@
 import { useState } from "react";
-// import { TProduct } from "../ui/homePage/ProductFeatured";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { IProduct } from "../types/Product.types";
 
 
-export interface TCategory {
-  _id?: string;
-  name: string;
-  slug: string;
-  isDeleted:boolean
-  createdAt?: Date;
-  updatedAt?: Date;
-}
 
-
-export interface IProduct  {
-  _id?: string;
-  name: string;
-  brand: string;
-  model: string;
-  category:TCategory;
-  price: number;
-  stock: number;
-  description?: string;
-  imageUrl: string;
-  isDeleted?:boolean
-  createdAt?: Date;
-  updatedAt?: Date;
-}
 
 type TProps ={
   item:IProduct
