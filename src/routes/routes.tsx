@@ -4,7 +4,7 @@ import MainLayout from "@/components/layout/mainLayout/MainLayout";
 import AdminDashboard from "@/pages/adminDashboard/AdminDashboard";
 import ManageOrders from "@/pages/adminDashboard/ManageOrders";
 import ManageProducts from "@/pages/adminDashboard/ManageProducts";
-import { ManageUsers } from "@/pages/adminDashboard/ManageUsers";
+import ManageUsers from "@/pages/adminDashboard/ManageUsers";
 import ProfileSetting from "@/pages/adminDashboard/ProfileSetting";
 import About from "@/pages/mainLayout/About";
 import Cart from "@/pages/mainLayout/Cart";
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
   children: [
      //admin routes 
     { path: "admin", element: <ProtectedRoutes role="admin"><AdminDashboard /></ProtectedRoutes> },
-    { path: "admin/manage-users", element: <ProtectedRoutes role="admin"><ManageUsers /></ProtectedRoutes> },
+    { path: "admin/manage-users", element: <ProtectedRoutes role="admin"><ManageUsers/></ProtectedRoutes> },
     { path: "admin/manage-products", element: <ProtectedRoutes role="admin"><ManageProducts/></ProtectedRoutes> },
     { path: "admin/manage-orders", element: <ProtectedRoutes role="admin"><ManageOrders/></ProtectedRoutes> },
     { path: "admin/profile-settings", element: <ProtectedRoutes role="admin"><ProfileSetting/></ProtectedRoutes> },

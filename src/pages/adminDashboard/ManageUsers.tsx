@@ -1,311 +1,107 @@
-import * as React from "react"
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import { Input } from "@/components/ui/input"
+import Loader from "@/components/share/Loader";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useGetAllUsersQuery } from "@/redux/features/users/userApi";
+import { AiOutlineDelete } from "react-icons/ai";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import Pagination from "@/components/share/Pagination";
+import { useState } from "react";
 
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@example.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@example.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@example.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@example.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@example.com",
-  },
-]
-
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
+export type TUser= {
+  _id?: string;
+  name: string;
+  email: string;
+  password: string;
+  passwordChangedAt?: Date;
+  status?: 'active' | 'deactivated';
+  role?:  "admin" | "customer";
+  isDeleted?:boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export const columns: ColumnDef<Payment>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
-  },
-]
-
-export function ManageUsers() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-
-  const table = useReactTable({
-    data,
-    columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
-  })
-
+const ManageUsers = () => {
+  const [page,setPage]=useState(1);
+  const limit =4
+  const {data:userData,isLoading}=useGetAllUsersQuery({page,limit});
+  if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
   return (
-    <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
+    <div >
+     <div className="ml-10 mt-10">
+<Table className="overflow-auto">
+  <TableCaption>A list of users</TableCaption>
+  <TableHeader>
+    <TableRow >
+      <TableHead className="w-[150px]">Name</TableHead>
+      <TableHead className="w-[200px]">Email</TableHead>
+      <TableHead className="w-[150px]">Role</TableHead>
+      <TableHead className="w-[150px]">Status</TableHead>
+      <TableHead className="w-[200px]">Update Status</TableHead>
+      <TableHead className="w-[200px]">Update Role</TableHead>
+      <TableHead className="w-[150px]">Action</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+  {userData?.data?.map((user:TUser) => (
+          <TableRow key={user._id}>
+            <TableCell className="font-medium">{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell className="pr-14"><span className={`px-2 border flex items-center justify-center rounded-full ${user.role==="admin"?"bg-blue-50 text-blue-500":"bg-rose-50 text-rose-500"}`}>{user.role}</span></TableCell>
+            <TableCell className="flex gap-3 items-center"><div className={`w-3 h-3 rounded-full ${user.status==="active"?"bg-green-500":"bg-red-500"}`}></div>{user.status}</TableCell>
+            <TableCell >
+              
+<label className="inline-flex items-center cursor-pointer">
+  <input type="checkbox" value="" className="sr-only peer"/>
+  <div className="relative w-8 h-4 bg-gray-200 peer-focus:outline-none  peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+</label>
+            </TableCell>
+            <TableCell className="flex gap-3 items-center">
+            <Select>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Change Role" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>{user.role}</SelectLabel>
+          <SelectItem value={user.role==="admin"?"customer":"admin"}>{user.role==="admin"?"customer":"admin"}</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+            </TableCell>
+            <TableCell ><span className="text-xl text-red-600"><AiOutlineDelete /></span></TableCell>
+          </TableRow>
+        ))}
+  </TableBody>
+</Table>
+
+ {/* pagination  */}
+ <div className="my-14">
+ <Pagination
+        currentPage={page} 
+        totalPages={userData?.meta?.totalPage} 
+        onPageChange={setPage} 
+      />
+ </div>
+     </div>
+      
+
     </div>
-  )
-}
+  );
+};
+
+export default ManageUsers;
