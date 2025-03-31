@@ -9,6 +9,8 @@ import { productSchema } from "@/schema/productSchema";
 import { brandOptions, modelOptions } from "@/utils/filterOptions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, UseFormReturn } from "react-hook-form";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 const CreateProduct = () => {
@@ -52,18 +54,26 @@ const defaultValues = {
    
   return (
  
-  <section className="m-10 flex justify-center items-center min-h-screen">
-  <div className="bg-white shadow-lg rounded-lg p-8 w-full ">
-    <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">
+  <section className="w-[300px] md:w-[400px] lg:w-[800px] ">
+    
+   <div className="flex justify-between ml-10 w-full mb-10">
+   <div className="flex items-center "><span>Product Management</span><IoIosArrowForward /><span>Create Product</span></div>
+   <div >
+    <Link to={"/dashboard/admin/manage-products"}><Button variant='outline' ><IoIosArrowBack />Back</Button></Link>
+    </div>
+   </div>
+
+  <div className="bg-white shadow-lg rounded-lg p-8 w-full ml-10 mb-20">
+    <h2 className="text-2xl font-semibold text-center text-gray-700 mb-10">
       Create New Product
     </h2>
-
+   
     <AppForm
       onSubmit={onSubmit}
       defaultValues={defaultValues}
       resolver={zodResolver(productSchema)}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:w-[800px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
         {/* Product Name */}
         <AppInput
           type="text"

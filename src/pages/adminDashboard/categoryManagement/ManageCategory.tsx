@@ -64,7 +64,7 @@ const handleDelete=async(id:string)=>{
   </TableHeader>
   <TableBody>
   {categoryData?.data?.map((category:any) => (
-          <TableRow key={category._id}>
+          <TableRow key={category._id} className="h-20">
             <TableCell className="font-medium">{category.name}</TableCell>
             <TableCell>{new Date(category.createdAt).toLocaleString()}</TableCell>
  

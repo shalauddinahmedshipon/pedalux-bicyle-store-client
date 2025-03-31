@@ -98,11 +98,11 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
   
     {/* filter by brand  */}
     <div >
-  <InputSelect label="Filter by Role" options={roleOptions} onSelected={setCurrentRole}/>
+  <InputSelect setCurrentPage={setPage} label="Filter by Role" options={roleOptions} onSelected={setCurrentRole}/>
   </div>
    {/* filter by status  */}
    <div >
-  <InputSelect label="Filter by Status" options={statusOptions} onSelected={setCurrentStatus}/>
+  <InputSelect setCurrentPage={setPage} label="Filter by Status" options={statusOptions} onSelected={setCurrentStatus}/>
   </div>
  </div>
 </header>
@@ -122,16 +122,22 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
   </TableHeader>
   <TableBody>
   {userData?.data?.map((user:TUser) => (
-          <TableRow key={user._id}>
+          <TableRow key={user._id} className="h-20">
             <TableCell className="font-medium">{user.name}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell className="pr-14"><span className={`px-2 border flex items-center justify-center rounded-full ${user.role==="admin"?"bg-blue-50 text-blue-500":"bg-rose-50 text-rose-500"}`}>{user.role}</span></TableCell>
-            <TableCell className="flex gap-3 items-center"><div className={`w-3 h-3 rounded-full ${user.status==="active"?"bg-green-500":"bg-red-500"}`}></div>{user.status}</TableCell>
+            <TableCell >
+             
+              <div className="flex gap-3 items-center">
+              <div className={`w-3 h-3 rounded-full ${user.status==="active"?"bg-green-500":"bg-red-500"}`}></div>{user.status}
+              </div>
+              </TableCell>
 
             {/* update status change  */}
             <TableCell >
               
-            <label className="inline-flex items-center cursor-pointer">
+            <div>
+  <label className="inline-flex items-center cursor-pointer">
   <input
     type="checkbox"
     className="sr-only peer"
@@ -141,11 +147,13 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
   <div className="relative w-8 h-4 bg-gray-200 peer-focus:outline-none peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
 </label>
 
+            </div>
             </TableCell>
 
                    {/* update role cell */}
-            <TableCell className="flex gap-3 items-center">
-            <Select onValueChange={(value)=>handleRoleChange(user._id as string,value)}>
+            <TableCell >
+           <div className="flex gap-3 items-center justify-center">
+           <Select onValueChange={(value)=>handleRoleChange(user._id as string,value)}>
       <SelectTrigger  className="w-[180px]">
       <SelectValue placeholder={selectedRoles[user._id!] ?? user.role ?? "Change Role"} />
       </SelectTrigger>
@@ -156,6 +164,7 @@ const handleStatusChange = async (userId: string, currentStatus: "active" | "dea
         </SelectGroup>
       </SelectContent>
     </Select>
+           </div>
             </TableCell>
             <TableCell ><span onClick={()=>handleDelete(user._id as string)} className="text-xl text-red-600 active:scale-95"><AiOutlineDelete /></span></TableCell>
           </TableRow>

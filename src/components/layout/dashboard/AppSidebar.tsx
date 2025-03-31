@@ -29,8 +29,8 @@ const AppSidebar = () => {
 
   const links = user?.role === "admin" ? adminLinks : userLinks;
   return (
-    <div>
-        <Sidebar>
+    <div >
+        <Sidebar className="bg-white">
           <SidebarHeader>    
           <div className="mx-auto">
           <Link to={"/"}>
@@ -47,10 +47,10 @@ const AppSidebar = () => {
             <SidebarMenu>
               {links.map((item) => (
                 <SidebarMenuItem  key={item.label}>
-                  <SidebarMenuButton isActive={location.pathname===item.path}  asChild>
-                    <NavLink   to={item.path}>
+                  <SidebarMenuButton  className="text-xl p-5" isActive={location.pathname===item.path}  asChild>
+                    <NavLink  to={item.path}>
                     <span>{item.icon}</span>
-                      <span>{item.label}</span>
+                      <span >{item.label}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -58,7 +58,7 @@ const AppSidebar = () => {
                <NavLink to={"/"}>
                <SidebarMenuItem >
                   <SidebarMenuButton asChild>
-                  <div>
+                  <div className="text-xl p-5">
                 <span ><RxHome/></span>
                 <span>Back To Home</span>
                 </div>    
@@ -68,7 +68,7 @@ const AppSidebar = () => {
               <SidebarMenuItem >
                   <SidebarMenuButton asChild>
                    
-                <div onClick={()=>dispatch(logout())}>
+                <div className="text-xl p-5" onClick={()=>dispatch(logout())}>
                 <span className="text-red-500"><IoMdLogOut/></span>
                 <span>Logout</span>
                 </div>

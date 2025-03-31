@@ -24,11 +24,12 @@ export function UpdateCategory({id}:{id:string}) {
   const {data:categoryData,isLoading}=useGetSingleCategoryQuery(id);
   const [updateCategory]=useUpdateCategoryMutation();
 
-  const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>,defaultValues:Record<string,unknown>)=>{
+  const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>,defaultValues:Record<string,unknown>|undefined)=>{
 
 //get updated fields value only 
 const updatedData = Object.keys(data).reduce((acc,key)=>{
-if(data[key]!==defaultValues[key]&&data[key]!==""){
+
+if(defaultValues&&data[key]!==defaultValues[key]&&data[key]!==""){
  acc[key]=data[key]
 }
 return acc
@@ -54,9 +55,12 @@ return acc
         toast.error(error.data.message,{id:id})
       }
     }
-if(isLoading) return <Loader/>
+if(isLoading) {
+  return <Loader/>
+}
+const previousData = categoryData?.data
 const defaultValues={
-  name:categoryData?.data?.name
+  name:previousData?.name
 }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -65,6 +69,7 @@ const defaultValues={
       <DialogHeader>
         <DialogTitle></DialogTitle>
         <DialogDescription>
+
         <AppForm  onSubmit={onSubmit} defaultValues={defaultValues} resolver={zodResolver(categorySchema)}>
  
  <AppInput label="Category Name" name="name" type="text" placeholder="Category Name"/>

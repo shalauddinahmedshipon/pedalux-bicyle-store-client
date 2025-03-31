@@ -65,7 +65,7 @@ updateProduct: builders.mutation({
         method: 'PATCH',
         body:updatedData,
       }),
-      invalidatesTags: ['user'],
+      invalidatesTags: ['product'],
     }),
 deleteProduct: builders.mutation({
       query: (productId) => ({

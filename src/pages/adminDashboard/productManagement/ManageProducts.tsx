@@ -80,11 +80,11 @@ const handleDelete=async(id:string)=>{
  <Button onClick={()=>window.location.reload()}><span><RxReload/></span>Refresh</Button>
        {/*filter by category  */}
        <div>
-  <InputSelect label="Select a category" options={categoryOptions} onSelected={setCategory}/>
+  <InputSelect setCurrentPage={setPage} label="Select a category" options={categoryOptions} onSelected={setCategory}/>
   </div>
       {/*filter by stock  */}
       <div >
-  <InputSelect label="Available" options={stockOptions} onSelected={setSelectedStock}/>
+  <InputSelect setCurrentPage={setPage} label="Available" options={stockOptions} onSelected={setSelectedStock}/>
   </div>
  </div>
 </header>
@@ -104,13 +104,13 @@ const handleDelete=async(id:string)=>{
   </TableHeader>
   <TableBody>
   {productData?.data?.map((product:IProduct) => (
-          <TableRow key={product._id } className="h-32">
+          <TableRow key={product._id } className="h-20">
             <TableCell >
-              <div className="w-32 h-32">
+              <div className="w-20 h-20">
                 <img className="w-full h-full bg-cover" src={product.imageUrl} alt={product.name} />
               </div>
             </TableCell>
-            <TableCell>{product.name}</TableCell>
+            <TableCell className="font-semibold">{product.name}</TableCell>
             <TableCell className="pr-14">
               {product.brand}
             </TableCell>
@@ -132,7 +132,7 @@ const handleDelete=async(id:string)=>{
           
             <TableCell >
              <div className="flex items-center justify-start gap-5">
-             <Link to={`/update-product/${product._id}`}>
+             <Link to={`/dashboard/admin/update-product/${product._id}`}>
             <span className="text-2xl text-violet-700 active:scale-95"><CiEdit /></span>
               </Link>
               <span onClick={()=>handleDelete(product._id as string)} className="text-2xl text-red-600 active:scale-95"><AiOutlineDelete /></span>
