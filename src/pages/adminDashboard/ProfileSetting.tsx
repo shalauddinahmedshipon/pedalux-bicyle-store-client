@@ -1,13 +1,16 @@
 import AppForm from "@/components/forms/AppForm";
 import AppInput from "@/components/forms/AppInput";
+import { ChangePasswordDialog } from "@/components/share/ChangePasswordDialog";
 import Loader from "@/components/share/Loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DialogTrigger } from "@/components/ui/dialog";
 import { useGetMyProfileQuery, useUpdateProfileMutation } from "@/redux/features/users/userApi";
 import {  updateProfileSchema } from "@/schema/authSchemaValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { CiEdit } from "react-icons/ci";
+import { IoIosArrowForward } from "react-icons/io";
 import { toast } from "sonner";
 
 
@@ -56,6 +59,18 @@ const ProfileSetting = () => {
                  
               </div>
               </AppForm>
+      </CardContent>
+    
+    </Card>
+
+    <Card className="md:w-[550px] w-[300px] p-5 mx-5 my-5 lg:mt-10 lg:mb-20 lg:mx-10 shadow-lg">
+      <CardHeader>
+        <CardTitle>Password and security</CardTitle>
+        <CardDescription>Manage your passwords, login preferences</CardDescription>
+      </CardHeader>
+      <CardContent>
+     <ChangePasswordDialog/>
+ 
       </CardContent>
     
     </Card>
