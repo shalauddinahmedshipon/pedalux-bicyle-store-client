@@ -8,9 +8,11 @@ import { useAppSelector } from "@/redux/hook";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
+import { useCurrentUser } from "@/redux/features/auth/authSlice";
 
 
 const Checkout = () => {
+ const user = useAppSelector(useCurrentUser);
  const cartItems = useAppSelector(useCartItems);
  const totalPrice = useAppSelector(useTotalPrice);
  const [createOrder]=useCreateOrderMutation();
@@ -25,6 +27,7 @@ const Checkout = () => {
     ))
 console.log(data)
  const orderData={
+  user:user?.id,
   phoneNumber:data.phoneNumber,
   products,
   totalPrice, 
@@ -36,9 +39,8 @@ console.log(data)
  const res=  await createOrder(orderData).unwrap();
 console.log(res.data);
 toast.success(res.message,{id:id})
- methods.reset();
 window.location.href=res.data
-
+methods.reset();
     } catch (error:any) {
       console.log(error)
       toast.error(error.data.message,{id:id})

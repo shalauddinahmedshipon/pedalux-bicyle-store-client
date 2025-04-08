@@ -1,3 +1,5 @@
+import { TUser } from "./User.types";
+
 export interface OrderData {
   id: number;
   order_id: string;
@@ -30,4 +32,41 @@ export interface OrderData {
   transaction_status: string | null;
   method: string;
   date_time: string;
+}
+
+
+
+
+export interface TOrder {
+  _id:string;
+  user: TUser; 
+  products: Array<{ 
+    bicycle: string;
+    quantity: number; 
+    price: number; 
+  }>;
+  phoneNumber:string;
+  totalPrice: number; 
+  status: 'pending' | 'shipped' | 'completed' | 'cancelled';
+  paymentStatus: 'pending' | 'cancel' | 'paid';
+  paymentMethod: string; 
+  surjoPayTransactionId?: string; 
+  transaction: {
+    id: string;
+    transactionStatus: string;
+    bank_status: string;
+    sp_code: string;
+    sp_message: string;
+    method: string;
+    date_time: string;
+  };
+  createdAt:string;
+  isDeleted:boolean;
+  shippingAddress: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
 }

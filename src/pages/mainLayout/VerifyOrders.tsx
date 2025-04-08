@@ -7,10 +7,11 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, AlertCircle } from "lucide-react";
-import { Link, useSearchParams } from "react-router";
+
 import { useVerifyOrderQuery } from "@/redux/features/order/orderApi";
 import Loader from "@/components/share/Loader";
 import { OrderData } from "@/types/Order.types";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function VerifyOrders() {
   const [searchParams] = useSearchParams();
@@ -120,7 +121,7 @@ export default function VerifyOrders() {
             </div>
           </CardContent>
         <div>
-        <Link to="/order">
+        <Link to="/dashboard/customer/my-orders">
               <Button className="w-full">View Orders</Button>
             </Link>
         </div>

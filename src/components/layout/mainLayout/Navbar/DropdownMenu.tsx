@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { logout, useCurrentUser } from "@/redux/features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
+import { clearCart } from "@/redux/features/cart/cartSlice";
 
 export function Menu() {
   const dispatch = useDispatch();
@@ -30,7 +31,8 @@ export function Menu() {
           </MenubarItem>
        </Link>
           <MenubarItem onClick={()=>{dispatch(logout());
-            navigate('/sign-in')
+                                     dispatch(clearCart());
+                                     navigate('/sign-in')
           }}>
           <LogOutIcon className="text-red-500"/> Logout
           </MenubarItem>  

@@ -5,7 +5,7 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div className="bg-gray-50">
+    <div >
 <ScrollRestoration/>
 <SidebarProvider>
       <AppSidebar />

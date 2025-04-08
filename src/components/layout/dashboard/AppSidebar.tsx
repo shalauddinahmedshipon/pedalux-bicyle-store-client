@@ -47,7 +47,7 @@ const AppSidebar = () => {
             <SidebarMenu>
               {links.map((item) => (
                 <SidebarMenuItem  key={item.label}>
-                  <SidebarMenuButton  className="text-xl p-5" isActive={location.pathname===item.path}  asChild>
+                  <SidebarMenuButton  className="text-sm p-5" isActive={location.pathname===item.path}  asChild>
                     <NavLink  to={item.path}>
                     <span>{item.icon}</span>
                       <span >{item.label}</span>
@@ -58,7 +58,7 @@ const AppSidebar = () => {
                <NavLink to={"/"}>
                <SidebarMenuItem >
                   <SidebarMenuButton asChild>
-                  <div className="text-xl p-5">
+                  <div className="text-lg p-5">
                 <span ><RxHome/></span>
                 <span>Back To Home</span>
                 </div>    
@@ -68,7 +68,7 @@ const AppSidebar = () => {
               <SidebarMenuItem >
                   <SidebarMenuButton asChild>
                    
-                <div className="text-xl p-5" onClick={()=>dispatch(logout())}>
+                <div className="text-lg p-5" onClick={()=>dispatch(logout())}>
                 <span className="text-red-500"><IoMdLogOut/></span>
                 <span>Logout</span>
                 </div>
