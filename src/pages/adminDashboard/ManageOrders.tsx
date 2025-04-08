@@ -17,12 +17,15 @@ import { TOrder } from "@/types/Order.types";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectGroup, SelectItem,  SelectTrigger, SelectValue } from "@/components/ui/select";
+import { InputSelect } from "@/components/share/InputSelect";
+import { orderStatusOptions } from "@/utils/filterOptions";
 
 const ManageOrders = () => {
   const [page,setPage]=useState(1);
   const [selectedStatus, setSelectedStatus] = useState<{ [key: string]: string }>({});
+  const [currentStatus,setCurrentStatus]=useState("");
   const limit =10
-  const {data:orderData,isLoading}=useGetAllOrdersQuery({page,limit,filters:{
+  const {data:orderData,isLoading}=useGetAllOrdersQuery({page,limit,filters:{status:currentStatus
   }});
   
 const [updateStatus]=useUpdateOrderStatusMutation(); 
@@ -72,6 +75,10 @@ const statusOptions = ["pending", "shipped", "completed", "cancelled"];
      <div className=" mx-10 mt-10">
 <h3 className="text-2xl font-semibold text-black mb-5">Order Management</h3>
 <header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8 w-full">
+   {/* filter by status  */}
+   <div >
+  <InputSelect setCurrentPage={setPage} label="Filter by Status" options={orderStatusOptions} onSelected={setCurrentStatus}/>
+  </div>
 </header>
 <Table className="overflow-auto">
   <TableCaption>A list of orders</TableCaption>

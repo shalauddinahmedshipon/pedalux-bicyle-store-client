@@ -50,3 +50,11 @@ export const statusOptions = [
   { label: "Active", value: "active" },
   { label: "Deactivated", value: "deactivated" },
 ];
+
+export const orderStatusOptions = [
+  { label: "All", value: "all" },
+  { label: "Pending", value: "pending" },
+  { label: "Shipped", value: "shipped" },
+  { label: "Complete", value: "complete" },
+  { label: "Cancelled", value: "cancelled" },
+];

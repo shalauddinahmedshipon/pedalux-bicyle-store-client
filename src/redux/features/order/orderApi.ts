@@ -13,12 +13,16 @@ const orderApi =baseApi.injectEndpoints({
       },
       invalidatesTags:['order']
     }),
-    getAllOrders: builders.query({
-      query: () => ({
-        url: "/orders",
-        method: "GET",
-      }),
-      providesTags:['order']
+    getAllOrders:builders.query({
+      query: ({ page = 1, limit = 10, filters }) =>{
+        let url = `/orders?page=${page}&limit=${limit}`;
+        if (filters?.status) url += `&status=${filters.status}`;
+          return  {
+              url:url,
+              method:"GET"
+              }    
+      },
+      providesTags: ['order'],
     }),
     verifyOrder: builders.query({
       query: (order_id) => ({
