@@ -4,17 +4,16 @@ import { ChangePasswordDialog } from "@/components/share/ChangePasswordDialog";
 import Loader from "@/components/share/Loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DialogTrigger } from "@/components/ui/dialog";
 import { useGetMyProfileQuery, useUpdateProfileMutation } from "@/redux/features/users/userApi";
 import {  updateProfileSchema } from "@/schema/authSchemaValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
 import { CiEdit } from "react-icons/ci";
-import { IoIosArrowForward } from "react-icons/io";
 import { toast } from "sonner";
 
 
 const ProfileSetting = () => {
+  
   const {data:myProfile,isLoading}=useGetMyProfileQuery(undefined);
   const [updateProfile]=useUpdateProfileMutation();
 
@@ -31,6 +30,7 @@ const ProfileSetting = () => {
     }
   
   }
+
   if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
   const defaultValues={email:myProfile?.data?.email,name:myProfile?.data?.name}
   return (

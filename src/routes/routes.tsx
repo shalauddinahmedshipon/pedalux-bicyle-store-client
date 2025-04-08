@@ -17,7 +17,6 @@ import Products from "@/pages/mainLayout/Products";
 import SignIn from "@/pages/mainLayout/SignIn";
 import SignUp from "@/pages/mainLayout/SignUp";
 import VerifyOrders from "@/pages/mainLayout/VerifyOrders";
-import ManageProfile from "@/pages/userDashboard/ManageProfile";
 import MyOrders from "@/pages/userDashboard/MyOrders";
 import UserDashboard from "@/pages/userDashboard/UserDashboard";
 import { createBrowserRouter } from "react-router-dom";
@@ -84,10 +83,11 @@ const router = createBrowserRouter([
     { path: "admin/update-product/:id", element: <ProtectedRoutes role="admin"><UpdateProduct/></ProtectedRoutes> },
     { path: "admin/manage-orders", element: <ProtectedRoutes role="admin"><ManageOrders/></ProtectedRoutes> },
     { path: "admin/profile-settings", element: <ProtectedRoutes role="admin"><ProfileSetting/></ProtectedRoutes> },
+    
     //user routes
-    { path: "customer", element: <ProtectedRoutes role="customer"><UserDashboard /></ProtectedRoutes> },
+    // { path: "customer", element: <ProtectedRoutes role="customer"><UserDashboard /></ProtectedRoutes> },
     { path: "customer/my-orders", element: <ProtectedRoutes role="customer"><MyOrders/></ProtectedRoutes> },
-    { path: "customer/manage-profile", element: <ProtectedRoutes role="customer"><ManageProfile/></ProtectedRoutes> },
+    { path: "customer/profile-settings", element: <ProtectedRoutes role="customer"><ProfileSetting/></ProtectedRoutes>  },
   ],
 },
 ]);

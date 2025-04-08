@@ -9,7 +9,8 @@ const authApi =baseApi.injectEndpoints({
               method:"POST",
               body:userInfo
               }    
-      }
+      },
+      invalidatesTags: ['user']
     }),
     signIn: builders.mutation({
       query: (userInfo) =>{
@@ -18,7 +19,8 @@ const authApi =baseApi.injectEndpoints({
               method:"POST",
               body:userInfo
               }    
-      }
+      },
+      invalidatesTags: ['user']
     }),
     changePassword: builders.mutation({
       query: (data) =>{
@@ -27,7 +29,8 @@ const authApi =baseApi.injectEndpoints({
               method:"POST",
               body:data
               }    
-      }
+      },
+      invalidatesTags: ['user']
     }),
   }),
 })

@@ -25,11 +25,28 @@ export function Menu() {
             <span className="text-4xl text-white bg-rose-500 rounded-full hidden lg:flex"> <FaRegCircleUser /></span>
         </MenubarTrigger>
         <MenubarContent className="bg-white/70 backdrop-blur-xs ">
+        {
+          user?.role==='customer'?
+          <div>
+            <Link to={`/dashboard/${user?.role}/my-orders`}>
+          <MenubarItem>
+             <RxDashboard /> My Orders
+             </MenubarItem>
+          </Link>
+          <Link to={`/dashboard/${user?.role}/profile-settings`}>
+          <MenubarItem>
+             <RxDashboard /> Settings
+             </MenubarItem>
+          </Link>
+          </div>
+          :
        <Link to={`/dashboard/${user?.role}`}>
        <MenubarItem>
           <RxDashboard /> Dashboard
           </MenubarItem>
        </Link>
+        }
+       
           <MenubarItem onClick={()=>{dispatch(logout());
                                      dispatch(clearCart());
                                      navigate('/sign-in')

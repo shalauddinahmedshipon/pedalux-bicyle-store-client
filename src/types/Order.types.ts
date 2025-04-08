@@ -1,3 +1,4 @@
+import { IProduct } from "./Product.types";
 import { TUser } from "./User.types";
 
 export interface OrderData {
@@ -41,7 +42,7 @@ export interface TOrder {
   _id:string;
   user: TUser; 
   products: Array<{ 
-    bicycle: string;
+    bicycle: IProduct;
     quantity: number; 
     price: number; 
   }>;

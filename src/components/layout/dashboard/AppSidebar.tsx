@@ -22,9 +22,8 @@ const AppSidebar = () => {
   ];
 
   const userLinks = [
-    { path: "/dashboard/customer", label: "Dashboard", icon: <RxDashboard/> },
     { path: "/dashboard/customer/my-orders", label: "My Orders", icon: <CiShoppingBasket /> },
-    { path: "/dashboard/customer/manage-profile", label: "Manage Profile", icon: <IoMdSettings /> },
+    { path: "/dashboard/customer/profile-settings", label: "Profile Settings", icon: <IoMdSettings /> },
   ];
 
   const links = user?.role === "admin" ? adminLinks : userLinks;
@@ -46,7 +45,7 @@ const AppSidebar = () => {
           <SidebarGroupContent>
             <SidebarMenu>
               {links.map((item) => (
-                <SidebarMenuItem  key={item.label}>
+                <SidebarMenuItem onClick={()=>item.label==="Profile Settings"&&window.location.reload()}  key={item.label}>
                   <SidebarMenuButton  className="text-sm p-5" isActive={location.pathname===item.path}  asChild>
                     <NavLink  to={item.path}>
                     <span>{item.icon}</span>
