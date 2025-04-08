@@ -47,7 +47,7 @@ const SignIn = () => {
   
   }
   
-  const defaultValues={name:"",email:"",password:""}
+  const defaultValues={email:"",password:""}
   
   if(token){
     return <Navigate to={"/"}/>

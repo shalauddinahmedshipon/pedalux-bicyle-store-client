@@ -1,4 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
+import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
 
 const userApi =baseApi.injectEndpoints({
   endpoints: (builders) => ({  
@@ -40,6 +41,14 @@ const userApi =baseApi.injectEndpoints({
       }),
       invalidatesTags: ['user'],
     }),
+    updateProfile: builders.mutation({
+      query: ({name}) => ({
+        url: `/users/update-profile`,
+        method: 'PATCH',
+        body: {name},
+      }),
+      invalidatesTags: ['user'],
+    }),
     updateUserRole: builders.mutation({
       query: ({ userId, role }) => ({
         url: `/users/update-role`,
@@ -58,4 +67,4 @@ const userApi =baseApi.injectEndpoints({
   }),
 })
 
-export const {useGetAllUsersQuery,useGetSingleUserQuery,useGetMyProfileQuery,useChangeUserStatusMutation,useUpdateUserRoleMutation,useDeleteUserMutation}=userApi
+export const {useUpdateProfileMutation,useGetAllUsersQuery,useGetSingleUserQuery,useGetMyProfileQuery,useChangeUserStatusMutation,useUpdateUserRoleMutation,useDeleteUserMutation}=userApi
