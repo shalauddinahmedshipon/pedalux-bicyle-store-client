@@ -23,7 +23,7 @@ const ProductContainerLayout = () => {
   const [selectedModels, setSelectedModels] = useState<string[]>([]);
   const [selectedStock, setSelectedStock] = useState(""); 
   const [sort, setSort] = useState(""); 
-  const limit=15
+  const limit=9
 const {data:products,isLoading}=useGetAllProductsQuery({page,limit,search,filters:{
   category,
   price:priceRange,
