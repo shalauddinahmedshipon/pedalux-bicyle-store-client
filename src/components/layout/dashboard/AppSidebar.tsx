@@ -2,7 +2,7 @@ import { Sidebar, SidebarContent,  SidebarGroup, SidebarGroupContent,  SidebarHe
 import { logout, useCurrentUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { CiSettings, CiShoppingBasket } from "react-icons/ci";
-import { FaBox, FaJediOrder, FaUsers } from "react-icons/fa6";
+import { FaBox, FaJediOrder, FaList, FaUsers } from "react-icons/fa6";
 import { IoMdLogOut, IoMdSettings } from "react-icons/io";
 import { RxDashboard, RxHome } from "react-icons/rx";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -15,7 +15,7 @@ const AppSidebar = () => {
   const adminLinks = [
     { path: "/dashboard/admin", label: "Dashboard", icon: <RxDashboard /> },
     { path: "/dashboard/admin/manage-users", label: "Manage Users", icon: <FaUsers /> },
-    { path: "/dashboard/admin/manage-category", label: "Manage Category", icon: <FaBox /> },
+    { path: "/dashboard/admin/manage-category", label: "Manage Category", icon: <FaList /> },
     { path: "/dashboard/admin/manage-products", label: "Manage Products", icon: <FaBox /> },
     { path: "/dashboard/admin/manage-orders", label: "Manage Orders", icon: <FaJediOrder /> },
     { path: "/dashboard/admin/profile-settings", label: "Profile Settings", icon: <CiSettings /> },

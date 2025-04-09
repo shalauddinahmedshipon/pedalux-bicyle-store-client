@@ -18,7 +18,6 @@ import SignIn from "@/pages/mainLayout/SignIn";
 import SignUp from "@/pages/mainLayout/SignUp";
 import VerifyOrders from "@/pages/mainLayout/VerifyOrders";
 import MyOrders from "@/pages/userDashboard/MyOrders";
-import UserDashboard from "@/pages/userDashboard/UserDashboard";
 import { createBrowserRouter } from "react-router-dom";
 import CreateProduct from "@/pages/adminDashboard/productManagement/CreateProduct";
 import ManageCategory from "@/pages/adminDashboard/categoryManagement/ManageCategory";
@@ -85,7 +84,6 @@ const router = createBrowserRouter([
     { path: "admin/profile-settings", element: <ProtectedRoutes role="admin"><ProfileSetting/></ProtectedRoutes> },
     
     //user routes
-    // { path: "customer", element: <ProtectedRoutes role="customer"><UserDashboard /></ProtectedRoutes> },
     { path: "customer/my-orders", element: <ProtectedRoutes role="customer"><MyOrders/></ProtectedRoutes> },
     { path: "customer/profile-settings", element: <ProtectedRoutes role="customer"><ProfileSetting/></ProtectedRoutes>  },
   ],

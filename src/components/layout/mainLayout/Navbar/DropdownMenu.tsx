@@ -13,6 +13,8 @@ import { logout, useCurrentUser } from "@/redux/features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
 import { clearCart } from "@/redux/features/cart/cartSlice";
+import { CiShoppingBasket } from "react-icons/ci";
+import { IoMdSettings } from "react-icons/io";
 
 export function Menu() {
   const dispatch = useDispatch();
@@ -30,12 +32,12 @@ export function Menu() {
           <div>
             <Link to={`/dashboard/${user?.role}/my-orders`}>
           <MenubarItem>
-             <RxDashboard /> My Orders
+             <CiShoppingBasket /> My Orders
              </MenubarItem>
           </Link>
           <Link to={`/dashboard/${user?.role}/profile-settings`}>
           <MenubarItem>
-             <RxDashboard /> Settings
+            <IoMdSettings /> Settings
              </MenubarItem>
           </Link>
           </div>

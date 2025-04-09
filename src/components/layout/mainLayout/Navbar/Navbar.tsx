@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet"
 import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
-import { useCurrentToken } from "@/redux/features/auth/authSlice";
+import { useCurrentToken, useCurrentUser } from "@/redux/features/auth/authSlice";
 import { Menu } from "./DropdownMenu";
 import { LogOutIcon } from "lucide-react";
 
@@ -21,6 +21,7 @@ import { LogOutIcon } from "lucide-react";
 const Navbar = () => {
 
 const token = useAppSelector(useCurrentToken);
+const user = useAppSelector(useCurrentUser);
 const routes =[
   {path:"/",label:"Home"},
   {path:"/products",label:"Products"},
@@ -97,14 +98,41 @@ const routes =[
   
       ))
     }
- 
- {token&& <NavLink 
+ {
+ token && user?.role==="customer"?
+<div>
+<NavLink 
+        className={({ isActive }) => 
+          isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
+        } 
+        to={`/dashboard/${user?.role}/my-orders`}>
+        <li className="my-2">My Orders</li>
+    </NavLink>
+<NavLink 
+        className={({ isActive }) => 
+          isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
+        } 
+        to={`/dashboard/${user?.role}/profile-settings`}>
+        <li className="my-2">Settings</li>
+    </NavLink>
+
+</div>
+  :
+   <NavLink 
+        className={({ isActive }) => 
+          isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
+        } 
+        to={`/dashboard/${user?.role}`}>
+        <li className="my-2">Dashboard</li>
+    </NavLink>
+ }
+ {/* {token&& <NavLink 
         className={({ isActive }) => 
           isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
         } 
         to={"/dashboard"}>
         <li className="my-2">Dashboard</li>
-      </NavLink>}
+      </NavLink>} */}
      
     </ul>
     {

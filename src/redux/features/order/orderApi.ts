@@ -61,6 +61,15 @@ const orderApi =baseApi.injectEndpoints({
       },
       invalidatesTags:['order']
     }),
+    getSalesDashboard:builders.query({
+      query: () =>{
+          return  {
+              url:"/orders/sales-dashboard/admin",
+              method:"GET"
+              }    
+      },
+      providesTags: ['order'],
+    }),
     deleteOrder: builders.mutation({
       query: (id) =>{
           return  {
@@ -73,4 +82,4 @@ const orderApi =baseApi.injectEndpoints({
   }),
 })
 
-export const {useCancelOrderMutation,useDeleteOrderMutation,useGetMyOrdersQuery,useCreateOrderMutation,useVerifyOrderQuery,useGetAllOrdersQuery,useUpdateOrderStatusMutation}=orderApi
+export const {useGetSalesDashboardQuery,useCancelOrderMutation,useDeleteOrderMutation,useGetMyOrdersQuery,useCreateOrderMutation,useVerifyOrderQuery,useGetAllOrdersQuery,useUpdateOrderStatusMutation}=orderApi

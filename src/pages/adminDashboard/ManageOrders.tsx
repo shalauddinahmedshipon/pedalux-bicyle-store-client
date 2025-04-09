@@ -24,7 +24,7 @@ const ManageOrders = () => {
   const [page,setPage]=useState(1);
   const [selectedStatus, setSelectedStatus] = useState<{ [key: string]: string }>({});
   const [currentStatus,setCurrentStatus]=useState("");
-  const limit =10
+  const limit =2
   const {data:orderData,isLoading}=useGetAllOrdersQuery({page,limit,filters:{status:currentStatus
   }});
   
@@ -132,7 +132,7 @@ const statusOptions = ["pending", "shipped", "completed", "cancelled"];
             </TableCell>
             <TableCell >
         <span className="text-3xl">&#2547;</span>
-        {order.totalPrice}
+        {order.totalPrice.toFixed(2)}
             </TableCell>
             <TableCell >
            <div className="flex gap-3 items-center justify-center">

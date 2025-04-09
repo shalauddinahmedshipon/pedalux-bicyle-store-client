@@ -2,9 +2,9 @@ import AppForm from "@/components/forms/AppForm";
 import AppInput from "@/components/forms/AppInput";
 import { shippingSchema } from "@/schema/checkoutScheme";
 import { Button } from "@/components/ui/button";
-import { ICartItem, useCartItems, useTotalPrice } from "@/redux/features/cart/cartSlice";
+import { clearCart, ICartItem, useCartItems, useTotalPrice } from "@/redux/features/cart/cartSlice";
 import { useCreateOrderMutation } from "@/redux/features/order/orderApi";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
@@ -16,7 +16,7 @@ const Checkout = () => {
  const cartItems = useAppSelector(useCartItems);
  const totalPrice = useAppSelector(useTotalPrice);
  const [createOrder]=useCreateOrderMutation();
-
+ const dispatch = useAppDispatch();
   const onSubmit=async(data:FieldValues,methods:UseFormReturn<FieldValues>)=>{
   const products =cartItems.map(item=>(
       {
@@ -41,6 +41,7 @@ console.log(res.data);
 toast.success(res.message,{id:id})
 window.location.href=res.data
 methods.reset();
+dispatch(clearCart());
     } catch (error:any) {
       console.log(error)
       toast.error(error.data.message,{id:id})

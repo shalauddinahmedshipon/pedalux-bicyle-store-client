@@ -46,7 +46,7 @@ const handleDelete=async(id:string)=>{
  if(isLoading)return <div className="w-full h-full left-[5%] fixed"> <Loader/></div>
   return (
     <div className="w-full">
-     <div className=" ml-10 mt-10">
+     <div className=" ml-10 my-10">
 <header className="flex flex-col lg:flex-row items-stretch justify-between gap-5 mb-8 w-full">
   <h3 className="text-2xl font-semibold text-black">Category Management</h3>
   <CreateCategory/>
