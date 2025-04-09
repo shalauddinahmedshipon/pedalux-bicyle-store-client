@@ -15,7 +15,7 @@ interface Props {
 const CategorySalesPieChart: React.FC<Props> = ({ data }) => {
   return (
     <div className="w-full h-96 pb-16 p-4 shadow-xl my-12 ">
-      <h2 className="text-xl font-semibold mb-4">Sales by Category</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-700">Sales by Category</h2>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
