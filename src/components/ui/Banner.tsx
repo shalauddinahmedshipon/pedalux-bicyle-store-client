@@ -4,8 +4,9 @@ import Fade from "embla-carousel-fade"
 import banner1 from "../../assets/banner4.jpg"
 import banner2 from "../../assets/hero1.jpg"
 import banner3 from "../../assets/hero2.jpg"
-
-
+import banner4 from "../../assets/small4.jpg"
+import banner5 from "../../assets/small1.jpeg"
+import banner6 from "../../assets/small2.jpg"
 
 import {
   Carousel,
@@ -29,11 +30,21 @@ export function Banner() {
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
       >
-        <CarouselContent>
+        <CarouselContent className="hidden md:flex">
           {[banner1,banner2,banner3].map((banner,idx) => (
             <CarouselItem key={idx}>
              <div>
-             <img className=" h-[calc(100vh-80px)] w-full" src={banner} alt="" />
+             <img className=" h-[calc(100vh-80px)] w-full bg-cover" src={banner} alt="" />
+             </div>
+          
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselContent className="md:hidden flex">
+          {[banner6,banner5,banner4].map((banner,idx) => (
+            <CarouselItem key={idx}>
+             <div>
+             <img className=" h-[calc(100vh-80px)] w-full bg-cover" src={banner} alt="" />
              </div>
           
             </CarouselItem>
@@ -43,9 +54,11 @@ export function Banner() {
         {/* Positioning buttons in bottom-left corner */}
        
   
-        <div className="absolute bottom-16 right-20 z-10">
-  <CarouselPrevious className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 mr-4" />
-  <CarouselNext className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70" />
+        <div className="absolute bottom-16 right-20 z-10 ">
+ <div className="relative">
+ <CarouselPrevious className="bg-black/50 absolute left-2 text-white p-2 rounded-full hover:bg-black/70 " />
+ <CarouselNext className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70" />
+ </div>
 </div>
 
 
