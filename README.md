@@ -7,7 +7,7 @@ A full-stack bicycle e-commerce platform with secure authentication, role-based 
 ## 🌐 Live Deployment
 
 **Frontend**: [https://pedaluxe-bicyle-strore-client-b4-a4.vercel.app/](https://pedaluxe-bicyle-strore-client-b4-a4.vercel.app/)  
-**Backend**: [https://pedaluxe-bicyle-store-server-b4-a4.vercel.app/](https://pedaluxe-bicycle-store-server.vercel.app/) *(replace with your actual backend URL)*
+**Backend**: [https://pedaluxe-bicyle-store-server-b4-a4.vercel.app/](https://pedaluxe-bicycle-store-server.vercel.app/) 
 
 ---
 
