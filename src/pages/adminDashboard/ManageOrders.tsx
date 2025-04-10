@@ -24,7 +24,7 @@ const ManageOrders = () => {
   const [page,setPage]=useState(1);
   const [selectedStatus, setSelectedStatus] = useState<{ [key: string]: string }>({});
   const [currentStatus,setCurrentStatus]=useState("");
-  const limit =2
+  const limit =4
   const {data:orderData,isLoading}=useGetAllOrdersQuery({page,limit,filters:{status:currentStatus
   }});
   
