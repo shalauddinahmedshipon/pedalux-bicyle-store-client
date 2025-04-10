@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import bannerImage from './../../assets/signup.webp'
 
 const SignIn = () => {
     
@@ -53,7 +54,7 @@ const SignIn = () => {
     return <Navigate to={"/"}/>
   }
   return (
-    <div className="bg-[url('/src/assets/signup.webp')] bg-cover py-24 flex justify-center">
+    <div style={{backgroundImage:`url(${bannerImage})`}} className={` bg-cover py-24 flex justify-center`}>
        <div className="  lg:my-0 bg-white/80 backdrop-blur-xs w-sm">
             <div className="w-full flex justify-center">
             <div className=" space-y-4 md:space-y-6  w-full p-8">

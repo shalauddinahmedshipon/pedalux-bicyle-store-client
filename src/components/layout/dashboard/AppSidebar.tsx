@@ -6,7 +6,7 @@ import { FaBox, FaJediOrder, FaList, FaUsers } from "react-icons/fa6";
 import { IoMdLogOut, IoMdSettings } from "react-icons/io";
 import { RxDashboard, RxHome } from "react-icons/rx";
 import { Link, NavLink, useLocation } from "react-router-dom";
-
+import logo from './../../../assets/Black and White Modern Bicycle Shop Logo (3) (1).png'
 
 const AppSidebar = () => {
   const user = useAppSelector(useCurrentUser);
@@ -33,7 +33,7 @@ const AppSidebar = () => {
           <SidebarHeader>    
           <div className="mx-auto">
           <Link to={"/"}>
-            <img className="w-32" src="/src/assets/Black and White Modern Bicycle Shop Logo (3) (1).png"/>
+            <img className="w-32" src={logo}/>
             </Link>
             </div>
         

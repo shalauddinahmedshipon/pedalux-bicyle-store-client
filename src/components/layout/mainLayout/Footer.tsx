@@ -1,4 +1,4 @@
-
+import logo from '../../../assets/Black and White Modern Bicycle Shop Logo (3) (1).png'
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
              {/* logo  */}
      <div className="w-32">
-     <img  src="/src/assets/Black and White Modern Bicycle Shop Logo (3) (1).png" alt="" />
+     <img  src={logo} alt="" />
      </div>
     <div className="mt-5">
     <small className=" text-gray-700">123 Bike Lane, Cycling City, CA 90210, USA.</small><br />

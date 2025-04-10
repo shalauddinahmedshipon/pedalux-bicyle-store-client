@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
 import { useCurrentUser } from "@/redux/features/auth/authSlice";
-
+import surjopay from '../../assets/surjoPay_logo.png';
 
 const Checkout = () => {
  const user = useAppSelector(useCurrentUser);
@@ -125,7 +125,7 @@ dispatch(clearCart());
             <div className="flex items-center space-x-2 mb-5">
             <div className="flex items-center gap-3">
          
-         <img className="w-24" src="/src/assets/surjoPay_logo.png" alt="surjo pay" />
+         <img className="w-24" src={surjopay} alt="surjo pay" />
          <p className="font-bold">SurjoPay</p>
         </div>
     </div>

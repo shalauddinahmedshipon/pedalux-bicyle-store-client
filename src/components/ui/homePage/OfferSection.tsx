@@ -9,17 +9,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import React from "react";
-import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
-import Loader from "@/components/share/Loader";
 import { Link } from "react-router-dom";
 
 const OfferSection = () => {
-  const { data, isLoading } = useGetAllProductsQuery({limit:20});
   const plugin = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
   const images =['https://res.cloudinary.com/dplg1mhic/image/upload/v1741950904/bc5_vu0rqm.jpg'
     ,'https://res.cloudinary.com/dplg1mhic/image/upload/v1741950933/bc2_i4gkce.webp','https://res.cloudinary.com/dplg1mhic/image/upload/v1741951847/forevar-x-baike_kwzvol.png','https://res.cloudinary.com/dplg1mhic/image/upload/v1741951972/41EiL_o9mWL_hxhrop.jpg','https://res.cloudinary.com/dplg1mhic/image/upload/v1741952022/Photoroom-20240519_175141_20_Large_20_1__CDe-87hvx_chfonw.jpg'
   ]
-  if (isLoading) return <div><Loader /></div>;
+ 
 
   return (
     <section className="my-24 mx-10 shadow-lg lg:pr-5">

@@ -1,15 +1,13 @@
 
 import HeroSection from '@/components/share/HeroSection';
 import { FaLinkedin, FaYoutube } from 'react-icons/fa';
-
-
-
+import heroImage from './../../assets/login.jpg'
 
 const Contact = () => {
   return (
     <div className='container'>
            {/* hero section  */}
-           <HeroSection imageUrlLg={'/src/assets/login.jpg'} title={"Contact"}/>
+           <HeroSection imageUrlLg={heroImage} title={"Contact"}/>
       <section className="bg-white dark:bg-gray-900">
     <div className="container px-10 py-12 mx-auto">
         <div>

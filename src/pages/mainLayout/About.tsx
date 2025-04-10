@@ -1,13 +1,14 @@
 import HeroSection from "@/components/share/HeroSection"
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
+import heroImage from './../../assets/aboutbanner.jpg'
+import aboutImage from './../../assets/about2.jpg'
 
 const About = () => {
   return (
     <div>
         {/* Header Section */}
-        <HeroSection imageUrlLg="/src/assets/aboutbanner.jpg" title="About"/>
+        <HeroSection imageUrlLg={heroImage} title="About"/>
  <div className="min-h-screen bg-white px-4 py-16 lg:px-20">
     
     <div className="max-w-6xl mx-auto text-center mb-16">
@@ -25,7 +26,7 @@ const About = () => {
           Who We Are
         </h2>
         <p>
-          At RideElite, we’re passionate about helping riders of all levels find their perfect bike. From rugged mountain trails to smooth city streets, our curated selection of bicycles delivers performance, comfort, and cutting-edge technology.
+          At Peralux, we’re passionate about helping riders of all levels find their perfect bike. From rugged mountain trails to smooth city streets, our curated selection of bicycles delivers performance, comfort, and cutting-edge technology.
         </p>
         <p>
           Since launching in 2024, our mission has been to make quality bicycles more accessible with competitive pricing, full custom accessories, and reliable customer service.
@@ -41,7 +42,7 @@ const About = () => {
       {/* Image */}
       <div className="lg:w-1/2 w-full">
         <img
-          src="/src/assets/about2.jpg"
+          src={aboutImage}
           alt="Bicycle Store"
           className="rounded-2xl shadow-lg object-cover w-full h-96"
         />

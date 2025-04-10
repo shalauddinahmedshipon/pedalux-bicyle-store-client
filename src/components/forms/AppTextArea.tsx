@@ -11,7 +11,7 @@ type TInputProps ={
 }
 
 
-const AppTextArea = ({label,name,placeholder,disabled,rows}:TInputProps) => {
+const AppTextArea = ({label,name,placeholder,disabled}:TInputProps) => {
   const {control}=useFormContext();
   return (
     <FormField

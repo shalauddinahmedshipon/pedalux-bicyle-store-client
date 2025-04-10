@@ -10,6 +10,7 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
+import heroImage from './../../assets/login.jpg'
 
 const SignUp = () => {
   const navigate=useNavigate();
@@ -46,11 +47,11 @@ if(token){
     <section className="lg:flex lg:flex-row items-center justify-between  bg-white w-full ">
       {/* image  */}
       <div className="w-1/2 lg:block h-screen hidden ">
-<img src="/src/assets/login.jpg" className="h-full w-full object-cover" alt="" />
+<img src={heroImage} className="h-full w-full object-cover" alt="" />
       </div>
 
       {/* content */}
-      <div className="lg:w-1/2 w-full my-12 lg:my-0">
+      <div className="lg:w-1/2 px-6 lg:px-0 w-full my-12 lg:my-0">
             <div className="w-full flex justify-center">
             <div className=" space-y-4 md:space-y-6 sm:p-8 w-lg">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">

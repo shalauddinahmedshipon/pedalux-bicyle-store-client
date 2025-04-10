@@ -1,6 +1,5 @@
 import { CiMenuBurger } from "react-icons/ci";
 import "../../../../styles/navbar.css"
-
 import {
   Sheet,
   SheetClose,
@@ -12,11 +11,7 @@ import { useAppSelector } from "@/redux/hook";
 import { useCurrentToken, useCurrentUser } from "@/redux/features/auth/authSlice";
 import { Menu } from "./DropdownMenu";
 import { LogOutIcon } from "lucide-react";
-
-
-
-
-
+import logo from "../../../../assets/Black and White Modern Bicycle Shop Logo (3) (1).png"
 
 const Navbar = () => {
 
@@ -36,7 +31,7 @@ const routes =[
      <div>
       {/* logo  */}
      <div className="w-32">
-     <img  src="/src/assets/Black and White Modern Bicycle Shop Logo (3) (1).png" alt="" />
+     <img  src={logo} alt="logo" />
      </div>
      </div>
       
@@ -99,7 +94,7 @@ const routes =[
       ))
     }
  {
- token && user?.role==="customer"?
+ token && user?.role==="customer"&&
 <div>
 <NavLink 
         className={({ isActive }) => 
@@ -117,7 +112,8 @@ const routes =[
     </NavLink>
 
 </div>
-  :
+}
+ {token && user?.role==="admin"&&
    <NavLink 
         className={({ isActive }) => 
           isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
@@ -126,13 +122,7 @@ const routes =[
         <li className="my-2">Dashboard</li>
     </NavLink>
  }
- {/* {token&& <NavLink 
-        className={({ isActive }) => 
-          isActive ? "py-2 text-rose-700 font-semibold " : "py-2  text-rose-500"
-        } 
-        to={"/dashboard"}>
-        <li className="my-2">Dashboard</li>
-      </NavLink>} */}
+
      
     </ul>
     {
