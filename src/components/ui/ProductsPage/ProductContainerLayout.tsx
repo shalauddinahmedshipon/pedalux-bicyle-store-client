@@ -19,7 +19,7 @@ const ProductContainerLayout = () => {
   const [page,setPage]=useState(1);
   const [category,setCategory]=useState("");
   const [brand,setBrand]=useState("");
-  const [priceRange, setPriceRange] = useState({ gte: 0, lte: 5000 });
+  const [priceRange, setPriceRange] = useState({ gte: 0, lte: 25000 });
   const [selectedModels, setSelectedModels] = useState<string[]>([]);
   const [selectedStock, setSelectedStock] = useState(""); 
   const [sort, setSort] = useState(""); 

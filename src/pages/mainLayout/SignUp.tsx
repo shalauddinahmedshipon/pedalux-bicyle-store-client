@@ -81,7 +81,7 @@ if(token){
                     
                   </div>
          <Button type="submit" className="w-full">
-         Sign in
+         Sign Up
          </Button>
          <Link to={'/sign-in'}>
          <p className="text-sm font-light text-gray-500 dark:text-gray-400">

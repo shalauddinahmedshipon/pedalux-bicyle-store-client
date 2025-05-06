@@ -10,8 +10,6 @@ import { useState } from "react";
 import { IProduct } from "@/types/Product.types";
 
 
-
-
 const ProductDetails = () => {
   const { id } = useParams();
   const [quantity,setQuantity]=useState(1);
