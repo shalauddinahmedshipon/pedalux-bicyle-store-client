@@ -1,4 +1,4 @@
-import { CiMenuBurger } from "react-icons/ci";
+import { CiMenuBurger, CiSearch, CiShoppingCart } from "react-icons/ci";
 import "../../../../styles/navbar.css"
 import {
   Sheet,
@@ -6,16 +6,18 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { MdOutlineFavoriteBorder, MdOutlineShoppingBag } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "@/redux/hook";
 import { useCurrentToken, useCurrentUser } from "@/redux/features/auth/authSlice";
 import { Menu } from "./DropdownMenu";
-import { LogOutIcon, SearchIcon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 import logo from "../../../../assets/Black and White Modern Bicycle Shop Logo (3) (1).png"
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import { IProduct } from "@/types/Product.types";
+import { GoGitCompare } from "react-icons/go";
 
 const Navbar = () => {
  const [search,setSearch]=useState("");
@@ -69,18 +71,18 @@ const routes =[
      </div>
 
         {/* search input  */}
- <div className="relative">
-  <SearchIcon className="absolute text-gray-600 right-5 top-1.5 font-light"/>
- <Input value={search} onChange={(e)=>setSearch(e.target.value)}  className="lg:w-[350px] md:w-[350px] rounded-full" type="text"  placeholder="Search bicycles..." />
+ <div className="relative  mx-3">
+  <CiSearch size={24} className="absolute text-gray-600 right-5 top-1.5 font-light"/>
+ <Input value={search} onChange={(e)=>setSearch(e.target.value)}  className="md:w-[350px] rounded-full" type="text"  placeholder="Search bicycles..." />
 
-<div onClick={()=>setSearchProducts(null)} className="w-full absolute z-50 bg-white  mt-2  rounded-2xl">
+<div onClick={()=>setSearchProducts(null)} className=" absolute z-50 bg-white  mt-2  rounded-2xl w-[250px] md:w-[350px] shadow-2xl">
 {
   !isLoading&&
   searchProducts?.map((product:IProduct)=>
   <Link to={`/product-details/${product._id}`}>
-  <div className="  p-0.5 flex relative hover:bg-gray-200 hover:rounded-2xl">
+  <div className="p-0.5 flex relative hover:bg-gray-200 hover:rounded-2xl">
     <span className="absolute top-2 right-2">
-      <SearchIcon size={15}/>
+      <CiSearch  size={20}/>
     </span>
     <div className="flex items-stretch gap-2">
       <img className="md:w-16 md:h-10 w-10 h-8 rounded-2xl" src={product.imageUrl} alt={product.name} />
@@ -106,6 +108,24 @@ const routes =[
 
     {/* nav end  */}
     <div className="flex justify-center items-center gap-6">
+      <div className="flex items-center gap-2">
+        <span className="relative"><GoGitCompare size={24} />
+        <div className="absolute z-50 text-rose-500 w-5 h-5 rounded-full border-rose-500 border flex items-center justify-center -bottom-4 -right-2">
+          <span className="text-[10px]">3</span>
+        </div>
+        </span>
+        <span className="relative"><MdOutlineShoppingBag size={24} />
+        <div className="absolute z-50 text-white bg-black w-5 h-5 rounded-full border-rose-500 border flex items-center justify-center -bottom-4 -right-2">
+          <span className="text-[10px]">3</span>
+        </div>
+        </span>
+        <span className="relative"><MdOutlineFavoriteBorder size={24} />
+        <div className="absolute z-50 bg-rose-500 w-5 h-5 rounded-full border-rose-500 text-white border flex items-center justify-center -bottom-4 -right-2">
+          <span className="text-[10px]">3</span>
+        </div>
+        </span>
+     
+      </div>
       {
         token?   
        
@@ -130,7 +150,12 @@ const routes =[
 
       <SheetContent className="pr-10">
       <SheetClose  asChild> 
+         
 <div>
+   {/* logo  */}
+   <div className="w-24 mx-auto mt-5">
+     <img  src={logo} alt="logo" />
+     </div>
 <ul className="pl-5 mt-8 text-rose-500 text-lg">
     {
       routes.map(route=>(
